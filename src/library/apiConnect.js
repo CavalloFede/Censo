@@ -8,6 +8,7 @@ function login(user, password) {
     usuario: user,
     password: password,
   });
+  console.log(raw);
 
   let requestOptions = {
     method: 'POST',
@@ -16,10 +17,16 @@ function login(user, password) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/login.php`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  return fetch(`${url}/login.php`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      sessionStorage.setItem('apiKey', result.apiKey);
+      sessionStorage.setItem('id', result.id);
+    })
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function register(user, password) {
@@ -38,10 +45,13 @@ function register(user, password) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/usuarios.php`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  return fetch(`${url}/usuarios.php`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function getDepartamentos(apiKey, idUser) {
@@ -49,19 +59,20 @@ function getDepartamentos(apiKey, idUser) {
   myHeaders.append('Content-Type', 'application/json');
   myHeaders.append('apikey', apiKey);
   myHeaders.append('iduser', idUser);
-  let urlencoded = new URLSearchParams();
 
   let requestOptions = {
     method: 'GET',
     headers: myHeaders,
-    body: urlencoded,
     redirect: 'follow',
   };
 
-  fetch(`${url}/departamentos.php`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  return fetch(`${url}/departamentos.php`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function getCiudadesByDepartamento(apiKey, idUser, idDepartamento) {
@@ -69,19 +80,20 @@ function getCiudadesByDepartamento(apiKey, idUser, idDepartamento) {
   myHeaders.append('Content-Type', 'application/json');
   myHeaders.append('apikey', apiKey);
   myHeaders.append('iduser', idUser);
-  let urlencoded = new URLSearchParams();
 
   let requestOptions = {
     method: 'GET',
     headers: myHeaders,
-    body: urlencoded,
     redirect: 'follow',
   };
-
-  fetch(`${url}/ciudades.php?idDepartamento=${idDepartamento}.php`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  console.log(idDepartamento);
+  return fetch(`${url}/ciudades.php?idDepartamento=${idDepartamento}.php`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function getAllCiudades(apiKey, idUser) {
@@ -96,10 +108,13 @@ function getAllCiudades(apiKey, idUser) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/ciudades.php`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  return fetch(`${url}/ciudades.php`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function getPersonasByUser(apiKey, idUser) {
@@ -114,10 +129,13 @@ function getPersonasByUser(apiKey, idUser) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/personas.php?idUsuario=${idUser}`, requestOptions)
-    .then((response) => response.text())
+  return fetch(`${url}/personas.php?idUsuario=${idUser}`, requestOptions)
+    .then((response) => response.json())
     .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function addPersona(apiKey, idUser, personaData) {
@@ -142,10 +160,13 @@ function addPersona(apiKey, idUser, personaData) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/personas.php`, requestOptions)
-    .then((response) => response.text())
+  return fetch(`${url}/personas.php`, requestOptions)
+    .then((response) => response.json())
     .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function delPersona(apiKey, idUser, idCenso) {
@@ -160,10 +181,13 @@ function delPersona(apiKey, idUser, idCenso) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/personas.php?idCenso=${idCenso}`, requestOptions)
-    .then((response) => response.text())
+  return fetch(`${url}/personas.php?idCenso=${idCenso}`, requestOptions)
+    .then((response) => response.json())
     .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 function getOcupaciones(apiKey, iduser) {
@@ -172,19 +196,19 @@ function getOcupaciones(apiKey, iduser) {
   myHeaders.append('apikey', apiKey);
   myHeaders.append('iduser', iduser);
 
-  let urlencoded = new URLSearchParams();
-
   let requestOptions = {
     method: 'GET',
     headers: myHeaders,
-    body: urlencoded,
     redirect: 'follow',
   };
 
-  fetch(`${url}/ocupaciones.php`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+  return fetch(`${url}/ocupaciones.php`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => result)
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 function getTotalCenso(apiKey, iduser) {
   let myHeaders = new Headers();
@@ -201,10 +225,13 @@ function getTotalCenso(apiKey, iduser) {
     redirect: 'follow',
   };
 
-  fetch(`${url}/totalCensados.php`, requestOptions)
-    .then((response) => response.text())
+  return fetch(`${url}/totalCensados.php`, requestOptions)
+    .then((response) => response.json())
     .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .catch((error) => {
+      console.log('error', error);
+      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+    });
 }
 
 export {
