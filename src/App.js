@@ -4,13 +4,15 @@ import Register from './components/Register';
 import RegisterPeople from './components/RegisterPeople/RegisterPeople';
 
 function App() {
+  const apiKey = sessionStorage.getItem('apiKey');
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Inicio de sesión</h1>
         <Login />
         <Register />
-        <RegisterPeople />
+        {apiKey ? <RegisterPeople /> : null}
       </header>
     </div>
   );

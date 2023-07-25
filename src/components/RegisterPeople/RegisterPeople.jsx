@@ -3,15 +3,17 @@ import Select from './Select';
 import { getOcupaciones, getDepartamentos, getCiudadesByDepartamento, addPersona } from '../../library/apiConnect';
 
 const RegisterPeople = () => {
-  const [name, setName] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [selectedOccupation, setSelectedOccupation] = useState('');
+  const [persona, setPersona] = useState({
+    name: '',
+    selectedDepartment: '',
+    selectedCity: '',
+    dateOfBirth: '',
+    selectedOccupation: '',
+  });
+
   const [occupations, setOccupations] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [cities, setCities] = useState([]);
-
   const formattedToday = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
@@ -38,72 +40,75 @@ const RegisterPeople = () => {
   useEffect(() => {
     const apiKey = sessionStorage.getItem('apiKey');
     const idUsuario = sessionStorage.getItem('id');
-    getCiudadesByDepartamento(apiKey, idUsuario, selectedDepartment)
+    getCiudadesByDepartamento(apiKey, idUsuario, persona.selectedDepartment)
       .then((ciudadesObtenidas) => {
         setCities(ciudadesObtenidas.ciudades);
       })
       .catch((error) => {
-        console.log('Hubo un error al obtener los departamentos');
+        console.log('Hubo un error al obtener los ciudades');
       });
-  }, [selectedDepartment]);
+  }, [persona.selectedDepartment]);
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleDepartmentChange = (event) => {
-    setSelectedDepartment(event.target.value);
-  };
-
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value);
-  };
-
-  const handleDateOfBirthChange = (event) => {
-    setDateOfBirth(event.target.value);
-  };
-
-  const handleOccupationChange = (event) => {
-    setSelectedOccupation(event.target.value);
+  const handleInputChange = (event) => {
+    console.log(event.target);
+    const { name, value } = event.target;
+    setPersona({
+      ...persona,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aquí puedes realizar cualquier acción que necesites con los datos censados,
-    // por ejemplo, enviarlos a un servidor o guardarlos en una base de datos.
-
-    // Mostramos los datos censados en la consola para este ejemplo:
-    console.log('Nombre:', name);
-    console.log('Departamento:', selectedDepartment);
-    console.log('Ciudad:', selectedCity);
-    console.log('Fecha de nacimiento:', dateOfBirth);
-    console.log('Ocupación:', selectedOccupation);
-
-    // Luego de censar la persona, podrías mostrar un mensaje de éxito o redirigir a otra página.
+    const apiKey = sessionStorage.getItem('apiKey');
+    const idUsuario = sessionStorage.getItem('id');
+    addPersona(apiKey, idUsuario, persona)
+      .then((personCensada) => {
+        console.log(personCensada);
+      })
+      .catch((error) => {
+        console.log('Hubo un error al censar a la persona');
+      });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>Nombre:</label>
-        <input type="text" value={name} onChange={handleNameChange} />
+        <input type="text" name="name" value={persona.name} onChange={handleInputChange} />
       </div>
       <div>
         <label>Fecha de nacimiento:</label>
-        <input type="date" value={dateOfBirth} onChange={handleDateOfBirthChange} max={formattedToday} />
+        <input
+          type="date"
+          name="dateOfBirth"
+          value={persona.dateOfBirth}
+          onChange={handleInputChange}
+          max={formattedToday}
+        />
       </div>
       <div>
         <label>Ocupación:</label>
-        <Select options={occupations} value={selectedOccupation} onChange={handleOccupationChange}></Select>
+        <Select
+          options={occupations}
+          name="selectedOccupation"
+          value={persona.selectedOccupation}
+          onChange={handleInputChange}
+        ></Select>
       </div>
       <div>
         <label>Departamento:</label>
-        <Select options={departments} value={selectedDepartment} onChange={handleDepartmentChange} />
+        <Select
+          options={departments}
+          name="selectedDepartment"
+          value={persona.selectedDepartment}
+          onChange={handleInputChange}
+        />
       </div>
-      {selectedDepartment && (
+      {persona.selectedDepartment && (
         <div>
           <label>Ciudad:</label>
-          <Select options={cities} value={selectedCity} onChange={handleCityChange} />
+          <Select options={cities} name="selectedCity" value={persona.selectedCity} onChange={handleInputChange} />
         </div>
       )}
       <button type="submit">Censar</button>

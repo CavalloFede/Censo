@@ -160,7 +160,7 @@ function addPersona(apiKey, idUser, personaData) {
 
   return fetch(`${url}/personas.php`, requestOptions)
     .then((response) => response.json())
-    .then((result) => console.log(result))
+    .then((result) => result)
     .catch((error) => {
       console.log('error', error);
       throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
