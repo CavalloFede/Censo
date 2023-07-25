@@ -4,7 +4,7 @@ const Select = ({ options, value, onChange }) => {
       <option value="">Seleccionar</option>
       {options.map((option) => (
         <option key={option.id} value={option.id}>
-          {option.name}
+          {option.nombre || option.ocupacion}
         </option>
       ))}
     </select>

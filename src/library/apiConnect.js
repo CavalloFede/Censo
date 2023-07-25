@@ -8,7 +8,6 @@ function login(user, password) {
     usuario: user,
     password: password,
   });
-  console.log(raw);
 
   let requestOptions = {
     method: 'POST',
@@ -86,8 +85,7 @@ function getCiudadesByDepartamento(apiKey, idUser, idDepartamento) {
     headers: myHeaders,
     redirect: 'follow',
   };
-  console.log(idDepartamento);
-  return fetch(`${url}/ciudades.php?idDepartamento=${idDepartamento}.php`, requestOptions)
+  return fetch(`${url}/ciudades.php?idDepartamento=${idDepartamento}`, requestOptions) //preguntar porque aca con .php no anda
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => {

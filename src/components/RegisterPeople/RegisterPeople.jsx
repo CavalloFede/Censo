@@ -12,6 +12,8 @@ const RegisterPeople = () => {
   const [departments, setDepartments] = useState([]);
   const [cities, setCities] = useState([]);
 
+  const formattedToday = new Date().toISOString().split('T')[0];
+
   useEffect(() => {
     const apiKey = sessionStorage.getItem('apiKey');
     const idUsuario = sessionStorage.getItem('id');
@@ -38,11 +40,10 @@ const RegisterPeople = () => {
     const idUsuario = sessionStorage.getItem('id');
     getCiudadesByDepartamento(apiKey, idUsuario, selectedDepartment)
       .then((ciudadesObtenidas) => {
-        console.log(ciudadesObtenidas.ciudades);
         setCities(ciudadesObtenidas.ciudades);
       })
       .catch((error) => {
-        console.log('Hubo un error al obtener las ocupaciones');
+        console.log('Hubo un error al obtener los departamentos');
       });
   }, [selectedDepartment]);
 
@@ -52,7 +53,6 @@ const RegisterPeople = () => {
 
   const handleDepartmentChange = (event) => {
     setSelectedDepartment(event.target.value);
-    console.log(selectedDepartment);
   };
 
   const handleCityChange = (event) => {
@@ -90,41 +90,20 @@ const RegisterPeople = () => {
       </div>
       <div>
         <label>Fecha de nacimiento:</label>
-        <input type="date" value={dateOfBirth} onChange={handleDateOfBirthChange} />
+        <input type="date" value={dateOfBirth} onChange={handleDateOfBirthChange} max={formattedToday} />
       </div>
       <div>
         <label>Ocupación:</label>
-        <select value={selectedOccupation} onChange={handleOccupationChange}>
-          <option value="">Seleccionar ocupación</option>
-          {occupations.map((occupation) => (
-            <option key={occupation.id} value={occupation.id}>
-              {occupation.ocupacion}
-            </option>
-          ))}
-        </select>
+        <Select options={occupations} value={selectedOccupation} onChange={handleOccupationChange}></Select>
       </div>
       <div>
         <label>Departamento:</label>
-        <select value={selectedDepartment} onChange={handleDepartmentChange}>
-          <option value="">Seleccionar Departamento</option>
-          {departments.map((department) => (
-            <option key={department.id} value={department.id}>
-              {department.nombre}
-            </option>
-          ))}
-        </select>
+        <Select options={departments} value={selectedDepartment} onChange={handleDepartmentChange} />
       </div>
       {selectedDepartment && (
         <div>
           <label>Ciudad:</label>
-          <select value={selectedCity} onChange={handleCityChange}>
-            <option value="">Seleccionar ciudad</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.id}>
-                {city.nombre}
-              </option>
-            ))}
-          </select>
+          <Select options={cities} value={selectedCity} onChange={handleCityChange} />
         </div>
       )}
       <button type="submit">Censar</button>
