@@ -1,77 +1,104 @@
-const url = 'https://censo.develotion.com';
+import { setUserToLocalStorage } from '../utils/storage';
 
-function login(user, password) {
-  let myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
+const BASE_URL = 'https://censo.develotion.com';
 
-  let raw = JSON.stringify({
-    usuario: user,
-    password: password,
-  });
-
-  let requestOptions = {
+const fetchLogin = async (username, password) => {
+  const requestOptions = {
     method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      usuario: username,
+      password: password,
+    }),
   };
 
-  return fetch(`${url}/login.php`, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      sessionStorage.setItem('apiKey', result.apiKey);
-      sessionStorage.setItem('id', result.id);
-    })
-    .catch((error) => {
-      console.log('error', error);
-      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+  try {
+    const response = await fetch(`${BASE_URL}/login.php`, requestOptions);
+    if (response.status === 200) {
+      return response.json().then((data) => {
+        const { apiKey, id } = data;
+        console.log(data);
+        setUserToLocalStorage({ apiKey, id });
+        return Promise.resolve({
+          apiKey,
+          id,
+        });
+      });
+    }
+
+    return Promise.reject({
+      code: response.status,
+      message: 'Ha ocurrido un error',
     });
-}
+  } catch (error) {
+    return Promise.reject({
+      message: error,
+    });
+  }
+};
 
-function register(user, password) {
-  let myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-
-  let raw = JSON.stringify({
-    usuario: user,
-    password: password,
-  });
-
-  let requestOptions = {
+const fetchRegister = async (username, password) => {
+  const requestOptions = {
     method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      usuario: username,
+      password: password,
+    }),
   };
 
-  return fetch(`${url}/usuarios.php`, requestOptions)
-    .then((response) => response.json())
-    .then((result) => result)
-    .catch((error) => {
-      console.log('error', error);
-      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+  try {
+    const response = await fetch(`${BASE_URL}/usuarios.php`, requestOptions);
+    if (response.status === 200) {
+      return response.json().then((data) => {
+        const { apiKey, id } = data;
+        setUserToLocalStorage({ apiKey, id });
+        return Promise.resolve({
+          apiKey,
+          id,
+        });
+      });
+    }
+    return Promise.reject({
+      code: response.status,
+      message: 'Ha ocurrido un error',
     });
-}
+  } catch (error) {
+    return Promise.reject({
+      message: error,
+    });
+  }
+};
 
-function getDepartamentos(apiKey, idUser) {
-  let myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('apikey', apiKey);
-  myHeaders.append('iduser', idUser);
-
-  let requestOptions = {
+async function fetchGetDepartamentos(apiKey, idUser) {
+  const requestOptions = {
     method: 'GET',
-    headers: myHeaders,
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: apiKey,
+      iduser: idUser,
+    },
     redirect: 'follow',
   };
 
-  return fetch(`${url}/departamentos.php`, requestOptions)
-    .then((response) => response.json())
-    .then((result) => result)
-    .catch((error) => {
-      console.log('error', error);
-      throw error; // Propaga el error para que pueda ser manejado en el lugar donde se llama la función
+  try {
+    const response = await fetch(`${BASE_URL}/departamentos.php`, requestOptions);
+    if (response.status === 200) {
+      return response.json();
+    }
+    return Promise.reject({
+      code: response.status,
+      message: 'Ha ocurrido un error',
     });
+  } catch (error) {
+    return Promise.reject({
+      message: error,
+    });
+  }
 }
 
 function getCiudadesByDepartamento(apiKey, idUser, idDepartamento) {
@@ -85,7 +112,7 @@ function getCiudadesByDepartamento(apiKey, idUser, idDepartamento) {
     headers: myHeaders,
     redirect: 'follow',
   };
-  return fetch(`${url}/ciudades.php?idDepartamento=${idDepartamento}`, requestOptions) //preguntar porque aca con .php no anda
+  return fetch(`${BASE_URL}/ciudades.php?idDepartamento=${idDepartamento}`, requestOptions) //preguntar porque aca con .php no anda
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => {
@@ -106,7 +133,7 @@ function getAllCiudades(apiKey, idUser) {
     redirect: 'follow',
   };
 
-  return fetch(`${url}/ciudades.php`, requestOptions)
+  return fetch(`${BASE_URL}/ciudades.php`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => {
@@ -127,7 +154,7 @@ function getPersonasByUser(apiKey, idUser) {
     redirect: 'follow',
   };
 
-  return fetch(`${url}/personas.php?idUsuario=${idUser}`, requestOptions)
+  return fetch(`${BASE_URL}/personas.php?idUsuario=${idUser}`, requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => {
@@ -158,7 +185,7 @@ function addPersona(apiKey, idUser, personaData) {
     redirect: 'follow',
   };
 
-  return fetch(`${url}/personas.php`, requestOptions)
+  return fetch(`${BASE_URL}/personas.php`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => {
@@ -179,7 +206,7 @@ function delPersona(apiKey, idUser, idCenso) {
     redirect: 'follow',
   };
 
-  return fetch(`${url}/personas.php?idCenso=${idCenso}`, requestOptions)
+  return fetch(`${BASE_URL}/personas.php?idCenso=${idCenso}`, requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => {
@@ -200,7 +227,7 @@ function getOcupaciones(apiKey, iduser) {
     redirect: 'follow',
   };
 
-  return fetch(`${url}/ocupaciones.php`, requestOptions)
+  return fetch(`${BASE_URL}/ocupaciones.php`, requestOptions)
     .then((response) => response.json())
     .then((result) => result)
     .catch((error) => {
@@ -223,7 +250,7 @@ function getTotalCenso(apiKey, iduser) {
     redirect: 'follow',
   };
 
-  return fetch(`${url}/totalCensados.php`, requestOptions)
+  return fetch(`${BASE_URL}/totalCensados.php`, requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => {
@@ -233,9 +260,9 @@ function getTotalCenso(apiKey, iduser) {
 }
 
 export {
-  login,
-  register,
-  getDepartamentos,
+  fetchLogin,
+  fetchRegister,
+  fetchGetDepartamentos,
   getCiudadesByDepartamento,
   getAllCiudades,
   getPersonasByUser,

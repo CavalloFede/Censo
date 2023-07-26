@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import Select from './Select';
-import { getOcupaciones, getDepartamentos, getCiudadesByDepartamento, addPersona } from '../../library/apiConnect';
+import Select from '../../UI/Select';
+import { getOcupaciones, getCiudadesByDepartamento, addPersona, fetchGetDepartamentos } from '../../../services/censoAPI';
 
-const RegisterPeople = () => {
+const RegisterPeople = ({ userLogged }) => {
   const [persona, setPersona] = useState({
     name: '',
     selectedDepartment: '',
@@ -17,10 +17,7 @@ const RegisterPeople = () => {
   const formattedToday = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
-    const apiKey = sessionStorage.getItem('apiKey');
-    const idUsuario = sessionStorage.getItem('id');
-
-    getOcupaciones(apiKey, idUsuario)
+    getOcupaciones(userLogged.apiKey, userLogged.id)
       .then((ocupacionesObtenidas) => {
         setOccupations(ocupacionesObtenidas.ocupaciones);
       })
@@ -28,7 +25,7 @@ const RegisterPeople = () => {
         console.log('Hubo un error al obtener las ocupaciones');
       });
 
-    getDepartamentos(apiKey, idUsuario)
+    fetchGetDepartamentos(userLogged.apiKey, userLogged.id)
       .then((departamentosObtenidos) => {
         setDepartments(departamentosObtenidos.departamentos);
       })
@@ -38,9 +35,7 @@ const RegisterPeople = () => {
   }, []);
 
   useEffect(() => {
-    const apiKey = sessionStorage.getItem('apiKey');
-    const idUsuario = sessionStorage.getItem('id');
-    getCiudadesByDepartamento(apiKey, idUsuario, persona.selectedDepartment)
+    getCiudadesByDepartamento(userLogged.apiKey, userLogged.id, persona.selectedDepartment)
       .then((ciudadesObtenidas) => {
         setCities(ciudadesObtenidas.ciudades);
       })
@@ -50,7 +45,6 @@ const RegisterPeople = () => {
   }, [persona.selectedDepartment]);
 
   const handleInputChange = (event) => {
-    console.log(event.target);
     const { name, value } = event.target;
     setPersona({
       ...persona,
