@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {userLogged ? <RegisterPeople userLogged={userLogged}/> : <SingUp onLogin={_onLogin} />}
+        {userLogged ? <RegisterPeople userLogged={userLogged}/> : <Login onLogin={_onLogin} />}
 
       </header>
     </div>
