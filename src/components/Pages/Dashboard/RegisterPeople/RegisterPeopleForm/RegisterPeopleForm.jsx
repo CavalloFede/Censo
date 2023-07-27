@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
-import Select from '../../UI/Select';
-import { getOcupaciones, getCiudadesByDepartamento, addPersona, fetchGetDepartamentos } from '../../../services/censoAPI';
+import Select from '../../../UI/Select';
+import {
+  getOcupaciones,
+  getCiudadesByDepartamento,
+  addPersona,
+  fetchGetDepartamentos,
+} from '../../../../services/censoAPI';
 
-const RegisterPeople = ({ userLogged }) => {
+const RegisterPeopleForm = ({ userLogged }) => {
   const [persona, setPersona] = useState({
     name: '',
     selectedDepartment: '',
@@ -10,12 +15,10 @@ const RegisterPeople = ({ userLogged }) => {
     dateOfBirth: '',
     selectedOccupation: '',
   });
-
   const [occupations, setOccupations] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [cities, setCities] = useState([]);
   const formattedToday = new Date().toISOString().split('T')[0];
-
   useEffect(() => {
     getOcupaciones(userLogged.apiKey, userLogged.id)
       .then((ocupacionesObtenidas) => {
@@ -35,7 +38,11 @@ const RegisterPeople = ({ userLogged }) => {
   }, []);
 
   useEffect(() => {
-    getCiudadesByDepartamento(userLogged.apiKey, userLogged.id, persona.selectedDepartment)
+    getCiudadesByDepartamento(
+      userLogged.apiKey,
+      userLogged.id,
+      persona.selectedDepartment
+    )
       .then((ciudadesObtenidas) => {
         setCities(ciudadesObtenidas.ciudades);
       })
@@ -64,12 +71,16 @@ const RegisterPeople = ({ userLogged }) => {
         console.log('Hubo un error al censar a la persona');
       });
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>Nombre:</label>
-        <input type="text" name="name" value={persona.name} onChange={handleInputChange} />
+        <input
+          type="text"
+          name="name"
+          value={persona.name}
+          onChange={handleInputChange}
+        />
       </div>
       <div>
         <label>Fecha de nacimiento:</label>
@@ -102,11 +113,16 @@ const RegisterPeople = ({ userLogged }) => {
       {persona.selectedDepartment && (
         <div>
           <label>Ciudad:</label>
-          <Select options={cities} name="selectedCity" value={persona.selectedCity} onChange={handleInputChange} />
+          <Select
+            options={cities}
+            name="selectedCity"
+            value={persona.selectedCity}
+            onChange={handleInputChange}
+          />
         </div>
       )}
       <button type="submit">Censar</button>
     </form>
   );
 };
-export default RegisterPeople;
+export default RegisterPeopleForm;

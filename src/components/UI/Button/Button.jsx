@@ -7,14 +7,14 @@ const Button = ({ cta, classColor, onHandleClick, disabled }) => {
     >
       {cta}
     </button>
-  )
-}
+  );
+};
 
 Button.defaultProps = {
   classColor: 'btn-primary',
   cta: 'Texto',
   disabled: false,
-  onHandleClick: () => {}
-}
+  onHandleClick: () => {},
+};
 
-export default Button
+export default Button;
