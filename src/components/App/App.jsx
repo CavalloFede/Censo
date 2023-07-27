@@ -2,6 +2,7 @@ import 'bootstrap-css-only';
 
 import './App.css';
 import Login from '../Pages/Login';
+import SignUp from '../Pages/SignUp';
 import Layout from '../Pages/Layout/Layout';
 
 import { useState } from 'react';
