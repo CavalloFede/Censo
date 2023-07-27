@@ -1,11 +1,11 @@
-const TODO_API_USER = 'censoUser';
+const CENSO_API_USER = 'censoUser';
 
 const setUserToLocalStorage = (userData) => {
-  localStorage.setItem(TODO_API_USER, JSON.stringify(userData));
+  localStorage.setItem(CENSO_API_USER, JSON.stringify(userData));
 };
 
 const removeUserFromLocalStorage = () => {
-  localStorage.removeItem(TODO_API_USER);
+  localStorage.removeItem(CENSO_API_USER);
 };
 
 const getItemFromLocalStorage = (key) => {
