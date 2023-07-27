@@ -16,13 +16,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        {userLogged ? (
-          <Layout userLogged={userLogged} />
-        ) : (
-          <Login onLogin={_onLogin} />
-        )}
-      </header>
+      {userLogged ? (
+        <Layout userLogged={userLogged} />
+      ) : (
+        <Login onLogin={_onLogin} />
+      )}
     </div>
   );
 }

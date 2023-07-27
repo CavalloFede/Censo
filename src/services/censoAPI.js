@@ -19,7 +19,6 @@ const fetchLogin = async (username, password) => {
     if (response.status === 200) {
       return response.json().then((data) => {
         const { apiKey, id } = data;
-        console.log(data);
         setUserToLocalStorage({ apiKey, id });
         return Promise.resolve({
           apiKey,
@@ -120,7 +119,7 @@ async function fetchGetCiudadesByDepartamento(apiKey, idUser, idDepartamento) {
       requestOptions
     );
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
@@ -147,7 +146,7 @@ async function fetchGetAllCiudades(apiKey, idUser) {
   try {
     const response = await fetch(`${BASE_URL}/ciudades.php`, requestOptions);
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
@@ -177,7 +176,7 @@ async function fetchGetPersonasByUser(apiKey, idUser) {
       requestOptions
     );
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
@@ -212,7 +211,7 @@ async function addPersona(apiKey, idUser, personaData) {
   try {
     const response = await fetch(`${BASE_URL}/personas.php`, requestOptions);
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
@@ -242,7 +241,7 @@ async function delPersona(apiKey, idUser, idCenso) {
       requestOptions
     );
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
@@ -269,7 +268,7 @@ async function getOcupaciones(apiKey, idUser) {
   try {
     const response = await fetch(`${BASE_URL}/ocupaciones.php`, requestOptions);
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
@@ -298,7 +297,7 @@ async function getTotalCenso(apiKey, idUser) {
       requestOptions
     );
     if (response.status === 200) {
-      return response.json;
+      return response.json();
     }
     return Promise.reject({
       code: response.status,
