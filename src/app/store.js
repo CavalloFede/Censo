@@ -6,7 +6,7 @@ import ocupacionesSlice from "./slices/ocupacionesSlice";
 import censoSlice from "./slices/censoSlice";
 
 export const store = configureStore({
-  redurecer: {
+  reducer: {
     user: userSlice,
     departamentos: departamentosSlice,
     ciudades: ciudadesSlice,

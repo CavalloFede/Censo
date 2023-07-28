@@ -1,36 +1,30 @@
-import "bootstrap-css-only";
-import "./App.css";
-import Login from "../Pages/Login";
-import SignUp from "../Pages/SignUp";
-import Layout from "../Pages/Layout/Layout";
-import {
-  removeUserFromLocalStorage,
-  setUserToLocalStorage,
-} from "../../utils/storage";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import 'bootstrap-css-only';
+
+import Login from '../Pages/Login';
+import SignUp from '../Pages/SignUp';
+import Layout from '../Pages/Layout/Layout';
+
+import { Route, Routes } from 'react-router-dom';
+import NotFound from '../Pages/NotFound';
+import PrivateRoute from '../Pages/PrivateRoute';
+import './App.css';
 
 function App() {
-  const navigate = useNavigate();
-
-  const _onLogin = ({ apiKey, id }) => {
-    dispatch(onLogin({ apiKey, id }));
-    setUserToLocalStorage({ apiKey, id });
-    navigate("/dashboard");
-  };
-  const _onLogout = ({ apiKey, id }) => {
-    dispatch(onLogout({ apiKey, id }));
-    removeUserFromLocalStorage();
-  };
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Login/>} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/dashboard"
-          element={<Layout />}
-        ></Route>
+          element={
+            <PrivateRoute redirectTo="/login">
+              <Layout />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

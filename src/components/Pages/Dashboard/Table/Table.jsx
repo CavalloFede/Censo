@@ -2,7 +2,7 @@ import Alert from '../../../UI/Alert';
 import ToDoItemRow from './ItemRow';
 import './Table.css';
 
-const Table = ({ data, onDelete }) => {
+const Table = ({ data }) => {
   return (
     <table className="table table-hover">
       <thead>
@@ -14,9 +14,7 @@ const Table = ({ data, onDelete }) => {
       </thead>
       <tbody>
         {data.length > 0 ? (
-          data.map(({ id, nombre }) => (
-            <ToDoItemRow id={id} nombre={nombre} onDelete={onDelete} />
-          ))
+          data.map(({ id, nombre }) => <ToDoItemRow id={id} nombre={nombre} />)
         ) : (
           <Alert
             classColor={'primart'}

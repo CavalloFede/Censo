@@ -1,16 +1,20 @@
-import { useEffect } from "react";
-import "./Login.css";
-import LoginForm from "./LoginForm";
-import logo from "./logo.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ onLogin, user }) => {
+import './Login.css';
+import LoginForm from './LoginForm';
+import logo from './logo.svg';
+
+const Login = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.userLogged);
+
   useEffect(() => {
     if (user) {
-      navigate("/dashboard");
+      navigate('/dashboard');
     }
-  });
+  }, [user, navigate]);
 
   return (
     <>
@@ -19,9 +23,9 @@ const Login = ({ onLogin, user }) => {
           <img src={logo} width="70" height="70" alt="Logo" />
           <h3>Login</h3>
           <section className="card-body">
-            <LoginForm onLogin={onLogin} />
+            <LoginForm />
             <br />
-            <Link to="/singup">No tienes cuenta?</Link>
+            <Link to="/signup">No tienes cuenta?</Link>
           </section>
         </div>
       </section>

@@ -1,9 +1,9 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./Header.css";
-import LogoutButton from "./LogoutButton";
+import React from 'react';
+import logo from './logo.svg';
+import './Header.css';
+import LogoutButton from './LogoutButton';
 
-const Header = ({ onLogout }) => {
+const Header = () => {
   return (
     <header className="App-header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,7 +29,7 @@ const Header = ({ onLogout }) => {
             />
             Censo-app
           </a>
-          <LogoutButton onLogout={onLogout} />
+          <LogoutButton />
         </div>
       </nav>
     </header>

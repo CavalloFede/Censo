@@ -1,13 +1,26 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { onLogin } from '../../../../app/slices/userSlice';
 import { fetchLogin } from '../../../../services/censoAPI';
+import { setUserToLocalStorage } from '../../../../utils/storage';
 import Button from '../../../UI/Button';
 import Alert from '../../../UI/Alert';
 
-const SingUpForm = ({ onLogin }) => {
+const SingUpForm = () => {
   const [alertInfo, setAlertInfo] = useState({ message: '', classColor: '' });
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const _onLogin = ({ apiKey, id }) => {
+    setUserToLocalStorage({ apiKey, id });
+    dispatch(onLogin({ apiKey, id }));
+    navigate('/dashboard');
+  };
 
   const _checkWhitespace = (value) => {
     const trimmedValue = value.trim();
@@ -54,11 +67,12 @@ const SingUpForm = ({ onLogin }) => {
       });
       return;
     }
+    
     try {
       const userData = await fetchLogin(username, password);
       setAlertInfo({ message: 'Registro exitoso', classColor: 'success' });
       setTimeout(() => {
-        onLogin(userData);
+        _onLogin(userData);
       }, 2000);
     } catch (error) {
       setAlertInfo({

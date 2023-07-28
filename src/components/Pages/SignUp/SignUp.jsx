@@ -1,7 +1,7 @@
 import SignUpForm from './SingUpForm';
 import logo from './logo.svg';
 
-const SignUp = ({ onLogin }) => {
+const SignUp = () => {
   return (
     <>
       <section className="d-flex flex-md justify-content-center login">
@@ -9,7 +9,7 @@ const SignUp = ({ onLogin }) => {
           <img src={logo} width="70" height="70" alt="Logo" />
           <h3>Sign Up</h3>
           <section className="card-body">
-            <SignUpForm onLogin={onLogin} />
+            <SignUpForm />
           </section>
         </div>
       </section>

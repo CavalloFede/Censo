@@ -1,13 +1,27 @@
 import { useState } from 'react';
 import { fetchRegister } from '../../../../services/censoAPI';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { onLogin } from '../../../../app/slices/userSlice';
+import { setUserToLocalStorage } from '../../../../utils/storage';
 import Button from '../../../UI/Button';
 import Alert from '../../../UI/Alert';
 
-const SingUpForm = ({ onLogin }) => {
+const SingUpForm = () => {
   const [alertInfo, setAlertInfo] = useState({ message: '', classColor: '' });
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const _onLogin = ({ apiKey, id }) => {
+    setUserToLocalStorage({ apiKey, id });
+    dispatch(onLogin({ apiKey, id }));
+
+    navigate('/dashboard');
+  };
 
   const _checkWhitespace = (value) => {
     const trimmedValue = value.trim();
@@ -27,7 +41,6 @@ const SingUpForm = ({ onLogin }) => {
 
     const hasWhitespace =
       _checkWhitespace(username) || _checkWhitespace(password);
-
     const hasSimbols = _checkSimbols(username) || _checkSimbols(password);
 
     if (username.trim() === '' || password.trim() === '') {
@@ -54,11 +67,12 @@ const SingUpForm = ({ onLogin }) => {
       });
       return;
     }
+
     try {
       const userData = await fetchRegister(username, password);
       setAlertInfo({ message: 'Registro exitoso', classColor: 'success' });
       setTimeout(() => {
-        onLogin(userData);
+        _onLogin(userData);
       }, 2000);
     } catch (error) {
       setAlertInfo({
@@ -70,6 +84,7 @@ const SingUpForm = ({ onLogin }) => {
 
   const _onHandleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === 'username') {
       setUsername(value);
     } else if (name === 'password') {

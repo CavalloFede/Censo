@@ -1,25 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
-  censoData: [],
+  censados: [],
 };
 export const censoSlice = createSlice({
-  name: "censoData",
+  name: 'censo',
   initialState,
   reducers: {
     onInitial: (state, action) => {
-      state.censoData = action.payload;
+      state.censados = action.payload;
     },
-    add: (state, action) => {
-      state.censoData.push(action.payload);
+    onAdd: (state, action) => {
+      state.censados.push(action.payload);
     },
-    delete: (state, action) => {
+    onDelete: (state, action) => {
       const idToDelete = action.payload;
-      state.censoData = state.censoData.filter(
-        (item) => item.id !== idToDelete
-      );
+      state.censados = state.censados.filter((item) => item.id !== idToDelete);
     },
   },
 });
 
-export const { onInitial } = censoSlice.actions;
+export const { onInitial, onAdd, onDelete } = censoSlice.actions;
 export default censoSlice.reducer;

@@ -1,22 +1,33 @@
-import { useEffect, useState } from 'react';
-import Table from './Table';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchGetPersonasByUser,
-  delPersona,
   fetchGetDepartamentos,
 } from '../../../services/censoAPI';
+import { onInitial as iniciarCensados } from '../../../app/slices/censoSlice';
+
+import { onInitial as iniciarOcupaciones } from '../../../app/slices/ocupacionesSlice';
+import { onInitial as iniciarDepartamentos } from '../../../app/slices/departamentosSlice';
+import { onInitial as iniciarCiudades } from '../../../app/slices/ciudadesSlice';
+
 import Button from '../../UI/Button';
+import Table from './Table';
 import Chart from './Chart';
 
-const Dashboard = ({ userLogged }) => {
-  const [usersData, setUsersData] = useState([]);
-  const [departamentosData, setDepartamentosData] = useState([]);
+const Dashboard = () => {
+  const dispatch = useDispatch();
+
+  const userLogged = useSelector((state) => state.user.userLogged);
+  const usersData = useSelector((state) => state.censo.censados);
+  const departamentosData = useSelector(
+    (state) => state.departamentos.departamentosData
+  );
 
   useEffect(() => {
     if (userLogged) {
       fetchGetPersonasByUser(userLogged.apiKey, userLogged.id)
         .then((users) => {
-          setUsersData(users.personas);
+          dispatch(iniciarCensados(users.personas));
         })
         .catch((e) => {
           console.error(e.message);
@@ -24,20 +35,14 @@ const Dashboard = ({ userLogged }) => {
 
       fetchGetDepartamentos(userLogged.apiKey, userLogged.id)
         .then((departamentos) => {
-          setDepartamentosData(departamentos.departamentos);
+          dispatch(iniciarDepartamentos(departamentos.departamentos));
         })
         .catch((e) => {
           console.error(e.message);
         });
     }
-  }, [userLogged]);
+  }, []);
 
-  const _onDelete = (id) => {
-    delPersona(userLogged.apiKey, userLogged.id, id).then(() => {
-      const newUsersData = usersData.filter((user) => user.id !== id);
-      setUsersData(newUsersData);
-    });
-  };
   return (
     <>
       <div className="container justify-content-center align-items-center">
@@ -51,7 +56,7 @@ const Dashboard = ({ userLogged }) => {
             <Button className="btn-primary" cta="Stats" />
           </div>
           <div className="card-body">
-            <Table data={usersData} onDelete={_onDelete} />;
+            <Table data={usersData} />;
           </div>
         </div>
       </div>
