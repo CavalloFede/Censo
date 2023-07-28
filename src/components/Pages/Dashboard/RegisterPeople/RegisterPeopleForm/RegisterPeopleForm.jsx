@@ -1,31 +1,34 @@
-import { useState, useEffect } from 'react';
-import Select from '../../../UI/Select';
+import { useState, useEffect } from "react";
+import Select from "../../../UI/Select";
 import {
   getOcupaciones,
   getCiudadesByDepartamento,
   addPersona,
   fetchGetDepartamentos,
-} from '../../../../services/censoAPI';
+} from "../../../../services/censoAPI";
 
 const RegisterPeopleForm = ({ userLogged }) => {
   const [persona, setPersona] = useState({
-    name: '',
-    selectedDepartment: '',
-    selectedCity: '',
-    dateOfBirth: '',
-    selectedOccupation: '',
+    name: "",
+    selectedDepartment: "",
+    selectedCity: "",
+    dateOfBirth: "",
+    selectedOccupation: "",
   });
+
   const [occupations, setOccupations] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [cities, setCities] = useState([]);
-  const formattedToday = new Date().toISOString().split('T')[0];
+
+  const formattedToday = new Date().toISOString().split("T")[0];
+
   useEffect(() => {
     getOcupaciones(userLogged.apiKey, userLogged.id)
       .then((ocupacionesObtenidas) => {
         setOccupations(ocupacionesObtenidas.ocupaciones);
       })
       .catch((error) => {
-        console.log('Hubo un error al obtener las ocupaciones');
+        console.log("Hubo un error al obtener las ocupaciones");
       });
 
     fetchGetDepartamentos(userLogged.apiKey, userLogged.id)
@@ -33,7 +36,7 @@ const RegisterPeopleForm = ({ userLogged }) => {
         setDepartments(departamentosObtenidos.departamentos);
       })
       .catch((error) => {
-        console.log('Hubo un error al obtener las ocupaciones');
+        console.log("Hubo un error al obtener las ocupaciones");
       });
   }, []);
 
@@ -47,7 +50,7 @@ const RegisterPeopleForm = ({ userLogged }) => {
         setCities(ciudadesObtenidas.ciudades);
       })
       .catch((error) => {
-        console.log('Hubo un error al obtener los ciudades');
+        console.log("Hubo un error al obtener los ciudades");
       });
   }, [persona.selectedDepartment]);
 
@@ -61,16 +64,17 @@ const RegisterPeopleForm = ({ userLogged }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const apiKey = sessionStorage.getItem('apiKey');
-    const idUsuario = sessionStorage.getItem('id');
+    const apiKey = sessionStorage.getItem("apiKey");
+    const idUsuario = sessionStorage.getItem("id");
     addPersona(apiKey, idUsuario, persona)
       .then((personCensada) => {
         console.log(personCensada);
       })
       .catch((error) => {
-        console.log('Hubo un error al censar a la persona');
+        console.log("Hubo un error al censar a la persona");
       });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>

@@ -1,10 +1,10 @@
-import Dashboard from '../Dashboard';
-import Header from '../Header';
+import Dashboard from "../Dashboard";
+import Header from "../Header";
 
-const Layout = ({ userLogged }) => {
+const Layout = ({ userLogged, onLogout }) => {
   return (
     <>
-      <Header />
+      <Header onLogout={onLogout} />
       <div className="container-fluid max-height: 100%">
         <Dashboard userLogged={userLogged} />
       </div>

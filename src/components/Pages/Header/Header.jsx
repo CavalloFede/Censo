@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./Header.css";
 import LogoutButton from "./LogoutButton";
 
-const Header = () => {
+const Header = ({ onLogout }) => {
   return (
     <header className="App-header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,7 +29,7 @@ const Header = () => {
             />
             Censo-app
           </a>
-          <LogoutButton />
+          <LogoutButton onLogout={onLogout} />
         </div>
       </nav>
     </header>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchLogin, fetchRegister } from '../../../../services/censoAPI';
+import { fetchLogin } from '../../../../services/censoAPI';
 import Button from '../../../UI/Button';
 import Alert from '../../../UI/Alert';
 
@@ -78,6 +78,7 @@ const SingUpForm = ({ onLogin }) => {
 
     const hasWhitespace = _checkWhitespace(value);
     const hasSimbols = _checkSimbols(value);
+
     if (hasWhitespace) {
       setAlertInfo({
         message:

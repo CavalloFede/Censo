@@ -1,8 +1,17 @@
-import './Login.css';
-import LoginForm from './LoginForm';
-import logo from './logo.svg';
+import { useEffect } from "react";
+import "./Login.css";
+import LoginForm from "./LoginForm";
+import logo from "./logo.svg";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, user }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  });
+
   return (
     <>
       <section className="d-flex flex-md justify-content-center login">
@@ -12,7 +21,7 @@ const Login = ({ onLogin }) => {
           <section className="card-body">
             <LoginForm onLogin={onLogin} />
             <br />
-            <a href="#/test">No tienes cuenta?</a>
+            <Link to="/singup">No tienes cuenta?</Link>
           </section>
         </div>
       </section>

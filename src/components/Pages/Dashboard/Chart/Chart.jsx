@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import Donut from './Donut';
+import { useEffect, useState } from "react";
+import Donut from "./Donut";
 
 const Chart = ({ data, departamentosData }) => {
   const [usersByState, setUsersByState] = useState([]);
@@ -7,11 +7,9 @@ const Chart = ({ data, departamentosData }) => {
 
   useEffect(() => {
     if (data) {
-      // Inicializamos los arrays para almacenar la cantidad de personas y los nombres de los departamentos
       const cantidadPersonasPorDepartamento = [];
       const nombresDepartamentos = [];
-      // Paso 1: Inicializamos el array cantidadPersonasPorDepartamento con valores en 0
-      // Paso 1: Inicializamos el array cantidadPersonasPorDepartamento con valores en 0
+
       const minDepartamentoId = Math.min(
         ...departamentosData.map((departamento) => departamento.id)
       );
@@ -22,7 +20,6 @@ const Chart = ({ data, departamentosData }) => {
         ] = 0;
       });
 
-      // Paso 2: Recorremos el array de personas para contar la cantidad de personas por departamento
       data.forEach((persona) => {
         cantidadPersonasPorDepartamento[
           persona.departamento - minDepartamentoId
@@ -37,7 +34,7 @@ const Chart = ({ data, departamentosData }) => {
       });
       setDepartmentNames(nombresDepartamentos);
     }
-  }, [data]);
+  }, [data, departamentosData]);
 
   console.log(usersByState);
   console.log(departmentNames);
