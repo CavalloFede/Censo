@@ -1,11 +1,8 @@
 import "bootstrap-css-only";
 import "./App.css";
 import Login from "../Pages/Login";
-// eslint-disable-next-line no-unused-vars
 import SignUp from "../Pages/SignUp";
 import Layout from "../Pages/Layout/Layout";
-import { useSelector, useDispatch } from "react-redux";
-import { onLogin, onLogout } from "../../app/slices/userSlice";
 import {
   removeUserFromLocalStorage,
   setUserToLocalStorage,
@@ -13,7 +10,6 @@ import {
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 function App() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const _onLogin = ({ apiKey, id }) => {
@@ -28,12 +24,12 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Login onLogin={_onLogin} />} />
-        <Route path="/login" element={<Login onLogin={_onLogin} />} />
+        <Route path="/" element={<Login/>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/dashboard"
-          element={<Layout onLogout={_onLogout} />}
+          element={<Layout />}
         ></Route>
       </Routes>
     </div>
