@@ -7,8 +7,6 @@ import {
 
 import { onInitial as iniciarDepartamentos } from '../../../app/slices/departamentosSlice';
 import { onInitial as iniciarCensados } from '../../../app/slices/censoSlice';
-import { onInitial as iniciarOcupaciones } from '../../../app/slices/ocupacionesSlice';
-import { onInitial as iniciarCiudades } from '../../../app/slices/ciudadesSlice';
 
 import Button from '../../UI/Button';
 import Table from './Table';

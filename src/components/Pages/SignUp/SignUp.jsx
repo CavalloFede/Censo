@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import SignUpForm from './SingUpForm';
 import logo from './logo.svg';
 
@@ -10,6 +12,8 @@ const SignUp = () => {
           <h3>Sign Up</h3>
           <section className="card-body">
             <SignUpForm />
+            <br />
+            <Link to="/login">Volver</Link>
           </section>
         </div>
       </section>
