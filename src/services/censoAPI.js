@@ -200,14 +200,13 @@ async function addPersona(apiKey, idUser, personaData) {
     body: JSON.stringify({
       idUsuario: idUser,
       nombre: personaData.nombre,
-      departamento: personaData.idDepartamento,
-      ciudad: personaData.idCiudad,
+      departamento: personaData.departamento,
+      ciudad: personaData.ciudad,
       fechaNacimiento: personaData.fechaNacimiento,
-      ocupacion: personaData.idOcupacion,
+      ocupacion: personaData.ocupacion,
     }),
     redirect: 'follow',
   };
-
   try {
     const response = await fetch(`${BASE_URL}/personas.php`, requestOptions);
     if (response.status === 200) {
@@ -254,7 +253,7 @@ async function delPersona(apiKey, idUser, idCenso) {
   }
 }
 
-async function getOcupaciones(apiKey, idUser) {
+async function fetchGetOcupaciones(apiKey, idUser) {
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -280,7 +279,7 @@ async function getOcupaciones(apiKey, idUser) {
     });
   }
 }
-async function getTotalCenso(apiKey, idUser) {
+async function fetchGetTotalCenso(apiKey, idUser) {
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -319,6 +318,6 @@ export {
   fetchGetPersonasByUser,
   addPersona,
   delPersona,
-  getOcupaciones,
-  getTotalCenso,
+  fetchGetOcupaciones,
+  fetchGetTotalCenso,
 };

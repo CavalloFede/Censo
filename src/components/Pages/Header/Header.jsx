@@ -6,7 +6,7 @@ import LogoutButton from './LogoutButton';
 const Header = () => {
   return (
     <header className="App-header">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <button
           className="navbar-toggler"
           type="button"

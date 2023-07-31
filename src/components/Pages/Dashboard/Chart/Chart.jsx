@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import Donut from "./Donut";
+import { useEffect, useState } from 'react';
+import Donut from './Donut';
 
-const Chart = ({ data, departamentosData }) => {
+const Chart = ({ usersData, departamentosData }) => {
   const [usersByState, setUsersByState] = useState([]);
   const [departmentNames, setDepartmentNames] = useState([]);
 
   useEffect(() => {
-    if (data) {
+    if (usersData && departamentosData) {
       const cantidadPersonasPorDepartamento = [];
       const nombresDepartamentos = [];
 
@@ -20,7 +20,7 @@ const Chart = ({ data, departamentosData }) => {
         ] = 0;
       });
 
-      data.forEach((persona) => {
+      usersData.forEach((persona) => {
         cantidadPersonasPorDepartamento[
           persona.departamento - minDepartamentoId
         ] += 1;
@@ -34,10 +34,7 @@ const Chart = ({ data, departamentosData }) => {
       });
       setDepartmentNames(nombresDepartamentos);
     }
-  }, [data, departamentosData]);
-
-  console.log(usersByState);
-  console.log(departmentNames);
+  }, [usersData, departamentosData]);
 
   return (
     <>

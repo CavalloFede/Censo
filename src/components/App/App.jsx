@@ -3,6 +3,9 @@ import 'bootstrap-css-only';
 import Login from '../Pages/Login';
 import SignUp from '../Pages/SignUp';
 import Layout from '../Pages/Layout/Layout';
+import RegisterPeople from '../Pages/Dashboard/RegisterPeople';
+import Table from '../Pages/Dashboard/Table';
+ 
 
 import { Route, Routes } from 'react-router-dom';
 import NotFound from '../Pages/NotFound';
@@ -23,7 +26,12 @@ function App() {
               <Layout />
             </PrivateRoute>
           }
-        />
+        >
+          <Route path="register" element={<RegisterPeople />} />
+          <Route path="listado" element={<Table />} />
+          <Route path="stats" element={<RegisterPeople />} />
+
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
@@ -31,3 +39,4 @@ function App() {
 }
 
 export default App;
+//

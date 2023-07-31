@@ -1,8 +1,19 @@
 import RegisterPeopleForm from './RegisterPeopleForm';
-const RegisterPeople = ({ userLogged }) => {
+import logo from './logo.svg';
+
+const RegisterPeople = () => {
   return (
     <>
-      <RegisterPeopleForm userLogged={userLogged} />
+      <section className="d-flex flex-md justify-content-center login">
+        <div className="card shadow-p">
+          <img src={logo} width="70" height="70" alt="Logo" />
+          <h3>Censar</h3>
+          <section className="card-body">
+            <RegisterPeopleForm />
+            <br />
+          </section>
+        </div>
+      </section>
     </>
   );
 };
