@@ -26,6 +26,7 @@ const RegisterPeopleForm = () => {
     (state) => state.ocupaciones.ocupacionesData
   );
 
+  const [opcionesOcupacion, setOpcionesOcupacion] = useState(ocupacionesData);
   const [isFormComplete, setIsFormComplete] = useState(true);
   const [persona, setPersona] = useState({
     id: '',
@@ -35,6 +36,7 @@ const RegisterPeopleForm = () => {
     fechaNacimiento: '',
     ocupacion: '',
   });
+
 
   const resetPersonaState = () => {
     setPersona({
@@ -95,6 +97,16 @@ const RegisterPeopleForm = () => {
     }
   }, [persona.departamento, userLogged, dispatch]);
 
+  useEffect(() => {
+
+    const filteredOcupaciones =
+      persona.fechaNacimiento && calcularEdad(persona.fechaNacimiento) < 18
+        ? [{ id: 5, ocupacion: "Estudiante" }]
+        : ocupacionesData;
+
+    setOpcionesOcupacion(filteredOcupaciones);
+  }, [persona.fechaNacimiento, ocupacionesData]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -118,6 +130,23 @@ const RegisterPeopleForm = () => {
       .catch((error) => {
         console.log('Hubo un error al censar a la persona');
       });
+  };
+
+  const calcularEdad = (fechaNacimiento) => {
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    const hoy = new Date();
+    
+    let edad = hoy.getFullYear() - fechaNacimientoDate.getFullYear();
+    const mesActual = hoy.getMonth();
+    const diaActual = hoy.getDate();
+    const mesNacimiento = fechaNacimientoDate.getMonth();
+    const diaNacimiento = fechaNacimientoDate.getDate();
+  
+    if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
+      edad--;
+    }
+  
+    return edad;
   };
 
   return (
@@ -144,7 +173,7 @@ const RegisterPeopleForm = () => {
       <label>Ocupación:</label>
       <br />
       <Select
-        options={ocupacionesData}
+        options={opcionesOcupacion}
         name="ocupacion"
         value={persona.ocupacion}
         onChange={handleInputChange}
