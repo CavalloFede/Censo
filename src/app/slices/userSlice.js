@@ -1,11 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { removeUserFromLocalStorage } from '../../utils/storage';
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  getItemFromLocalStorage,
+  removeUserFromLocalStorage,
+} from "../../utils/storage";
 
 const initialState = {
-  userLogged: null,
+  userLogged: getItemFromLocalStorage("censoUser"),
 };
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     onLogin: (state, action) => {
