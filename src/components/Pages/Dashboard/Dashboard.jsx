@@ -1,24 +1,28 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   fetchGetPersonasByUser,
   fetchGetDepartamentos,
-} from '../../../services/censoAPI';
+  fetchGetOcupaciones,
+} from "../../../services/censoAPI";
 
-import { onInitial as iniciarDepartamentos } from '../../../app/slices/departamentosSlice';
-import { onInitial as iniciarCensados } from '../../../app/slices/censoSlice';
+import { onInitial as iniciarDepartamentos } from "../../../app/slices/departamentosSlice";
+import { onInitial as iniciarCensados } from "../../../app/slices/censoSlice";
 
-import Button from '../../UI/Button';
-import Table from './Table';
-import Chart from './Chart';
-import RegisterPeople from './RegisterPeople';
-import { Link } from 'react-router-dom';
+import Button from "../../UI/Button";
+import Table from "./Table";
+import Chart from "./Chart";
+import RegisterPeople from "./RegisterPeople";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
   const userLogged = useSelector((state) => state.user.userLogged);
   const usersData = useSelector((state) => state.censo.censados);
+  const ocupacionesData = useSelector(
+    (state) => state.ocupaciones.ocupacionesData
+  );
   const departamentosData = useSelector(
     (state) => state.departamentos.departamentosData
   );
@@ -36,6 +40,13 @@ const Dashboard = () => {
       fetchGetDepartamentos(userLogged.apiKey, userLogged.id)
         .then((departamentos) => {
           dispatch(iniciarDepartamentos(departamentos.departamentos));
+        })
+        .catch((e) => {
+          console.error(e.message);
+        });
+      fetchGetOcupaciones(userLogged.apiKey, userLogged.id)
+        .then((ocupaciones) => {
+          dispatch(iniciarDepartamentos(ocupaciones.ocupaciones));
         })
         .catch((e) => {
           console.error(e.message);
@@ -64,13 +75,16 @@ const Dashboard = () => {
             </Link>
           </div>
           <div className="card-body">
-            <Table data={usersData} />
+            <Table usersData={usersData} ocupacionesData={ocupacionesData} />
           </div>
           <div className="card-body">
             <RegisterPeople />
           </div>
           <div className="card-body">
-            <Chart usersData={usersData} departamentosData={departamentosData} />
+            <Chart
+              usersData={usersData}
+              departamentosData={departamentosData}
+            />
           </div>
         </div>
       </div>

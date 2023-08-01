@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
-import { onLogin } from '../../../../app/slices/userSlice';
-import { fetchLogin } from '../../../../services/censoAPI';
-import { setUserToLocalStorage } from '../../../../utils/storage';
-import Button from '../../../UI/Button';
-import Alert from '../../../UI/Alert';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { onLogin } from "../../../../app/slices/userSlice";
+import { fetchLogin } from "../../../../services/censoAPI";
+import { setUserToLocalStorage } from "../../../../utils/storage";
+import Button from "../../../UI/Button";
+import Alert from "../../../UI/Alert";
 
 const SingUpForm = () => {
-  const [alertInfo, setAlertInfo] = useState({ message: '', classColor: '' });
+  const [alertInfo, setAlertInfo] = useState({ message: "", classColor: "" });
   const [btnDisabled, setBtnDisabled] = useState(true);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const SingUpForm = () => {
   const _onLogin = ({ apiKey, id }) => {
     setUserToLocalStorage({ apiKey, id });
     dispatch(onLogin({ apiKey, id }));
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   const _checkWhitespace = (value) => {
@@ -43,10 +43,10 @@ const SingUpForm = () => {
 
     const hasSimbols = _checkSimbols(username) || _checkSimbols(password);
 
-    if (username.trim() === '' || password.trim() === '') {
+    if (username.trim() === "" || password.trim() === "") {
       setAlertInfo({
-        message: 'Por favor complete los campos',
-        classColor: 'danger',
+        message: "Por favor complete los campos",
+        classColor: "danger",
       });
       return;
     }
@@ -54,39 +54,39 @@ const SingUpForm = () => {
     if (hasWhitespace) {
       setAlertInfo({
         message:
-          'El usuario y la contraseña no pueden contener espacios en blanco',
-        classColor: 'danger',
+          "El usuario y la contraseña no pueden contener espacios en blanco",
+        classColor: "danger",
       });
       return;
     }
 
     if (hasSimbols) {
       setAlertInfo({
-        message: 'El usuario y la contraseña no pueden contener simbolos',
-        classColor: 'danger',
+        message: "El usuario y la contraseña no pueden contener simbolos",
+        classColor: "danger",
       });
       return;
     }
-    
+
     try {
       const userData = await fetchLogin(username, password);
-      setAlertInfo({ message: 'Registro exitoso', classColor: 'success' });
+      setAlertInfo({ message: "Registro exitoso", classColor: "success" });
       setTimeout(() => {
         _onLogin(userData);
       }, 2000);
     } catch (error) {
       setAlertInfo({
-        message: error.message || 'Ha ocurrido un error',
-        classColor: 'danger',
+        message: error.message || "Ha ocurrido un error",
+        classColor: "danger",
       });
     }
   };
 
   const _onHandleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'username') {
+    if (name === "username") {
       setUsername(value);
-    } else if (name === 'password') {
+    } else if (name === "password") {
       setPassword(value);
     }
 
@@ -96,22 +96,22 @@ const SingUpForm = () => {
     if (hasWhitespace) {
       setAlertInfo({
         message:
-          'El usuario y la contraseña no pueden contener espacios en blanco',
-        classColor: 'danger',
+          "El usuario y la contraseña no pueden contener espacios en blanco",
+        classColor: "danger",
       });
     } else if (hasSimbols) {
       setAlertInfo({
-        message: 'El usuario y la contraseña no pueden contener simbolos',
-        classColor: 'danger',
+        message: "El usuario y la contraseña no pueden contener simbolos",
+        classColor: "danger",
       });
     } else {
       setAlertInfo({
-        message: '',
-        classColor: '',
+        message: "",
+        classColor: "",
       });
     }
 
-    setBtnDisabled(username.trim() === '' || password.trim() === '');
+    setBtnDisabled(username.trim() === "" || password.trim() === "");
   };
 
   return (
@@ -145,8 +145,8 @@ const SingUpForm = () => {
         <br />
         <br />
         <Button
-          cta={'Sign UP'}
-          classColor={'btn-primary'}
+          cta={"Login"}
+          classColor={"btn-primary"}
           onHandleClick={_onHandleLogin}
           disabled={btnDisabled}
         />
