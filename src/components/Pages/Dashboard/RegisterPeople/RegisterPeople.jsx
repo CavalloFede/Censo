@@ -1,5 +1,6 @@
-import RegisterPeopleForm from './RegisterPeopleForm';
-import logo from './logo.svg';
+import { Link } from "react-router-dom";
+import RegisterPeopleForm from "./RegisterPeopleForm";
+import logo from "./logo.svg";
 
 const RegisterPeople = () => {
   return (
@@ -11,6 +12,7 @@ const RegisterPeople = () => {
           <section className="card-body">
             <RegisterPeopleForm />
             <br />
+            <Link to="/dashboard">Volver</Link>
           </section>
         </div>
       </section>

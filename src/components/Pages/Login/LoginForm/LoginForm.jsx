@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { onLogin } from "../../../../app/slices/userSlice";
 import { fetchLogin } from "../../../../services/censoAPI";
-import { setUserToLocalStorage } from "../../../../utils/storage";
+
 import Button from "../../../UI/Button";
 import Alert from "../../../UI/Alert";
 
@@ -17,7 +17,6 @@ const SingUpForm = () => {
   const navigate = useNavigate();
 
   const _onLogin = ({ apiKey, id }) => {
-    setUserToLocalStorage({ apiKey, id });
     dispatch(onLogin({ apiKey, id }));
     navigate("/dashboard");
   };
@@ -70,7 +69,7 @@ const SingUpForm = () => {
 
     try {
       const userData = await fetchLogin(username, password);
-      setAlertInfo({ message: "Registro exitoso", classColor: "success" });
+      setAlertInfo({ message: "Login exitoso", classColor: "success" });
       setTimeout(() => {
         _onLogin(userData);
       }, 2000);

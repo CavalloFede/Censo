@@ -1,7 +1,15 @@
-import { useEffect, useState } from 'react';
-import Donut from './Donut';
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const Chart = ({ usersData, departamentosData }) => {
+import Donut from "./Donut";
+
+const Chart = () => {
+  const usersData = useSelector((state) => state.censo.censados);
+  const departamentosData = useSelector(
+    (state) => state.departamentos.departamentosData
+  );
+
   const [usersByState, setUsersByState] = useState([]);
   const [departmentNames, setDepartmentNames] = useState([]);
 
@@ -32,14 +40,26 @@ const Chart = ({ usersData, departamentosData }) => {
         nombresDepartamentos[departamento.id - minDepartamentoId] =
           departamento.nombre;
       });
+
       setDepartmentNames(nombresDepartamentos);
     }
   }, [usersData, departamentosData]);
 
   return (
     <>
-      <div>
-        <Donut personas={usersByState} departamentos={departmentNames} />
+      <div className="container justify-content-center align-items-center">
+        <div className="card text-center ">
+          <div className="card-header">
+            <h5 className="card-title">Stats</h5>
+          </div>
+          <div className="card-body d-flex flex-sm-column ">
+            <div className="card-body">
+              <Donut personas={usersByState} departamentos={departmentNames} />
+              <br />
+              <Link to="/dashboard">Volver</Link>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

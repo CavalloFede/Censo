@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getItemFromLocalStorage,
   removeUserFromLocalStorage,
+  setUserToLocalStorage,
 } from "../../utils/storage";
 
 const initialState = {
@@ -12,6 +13,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     onLogin: (state, action) => {
+      setUserToLocalStorage(action.payload);
       state.userLogged = action.payload;
     },
     onLogout: (state) => {

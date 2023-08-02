@@ -1,4 +1,4 @@
-import Dashboard from "../Dashboard";
+import { Outlet } from "react-router-dom";
 import Header from "../Header";
 
 const Layout = () => {
@@ -6,7 +6,7 @@ const Layout = () => {
     <>
       <Header />
       <div className="container-fluid max-height: 100%">
-        <Dashboard />
+        <Outlet />
       </div>
     </>
   );

@@ -109,7 +109,6 @@ const RegisterPeopleForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setPersona({
       ...persona,
       [name]: value,
@@ -124,10 +123,6 @@ const RegisterPeopleForm = () => {
         persona.departamento = parseInt(persona.departamento);
         persona.ocupacion = parseInt(persona.ocupacion);
         persona.ciudad = parseInt(persona.ciudad);
-        persona.ocupacionName = ocupacionesData.find(
-          (ocupacion) => ocupacion.id === persona.ocupacion
-        ).ocupacion;
-        console.log(persona);
 
         dispatch(agregarPersona(persona));
         resetPersonaState();

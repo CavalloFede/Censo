@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { onLogout } from '../../../../app/slices/userSlice';
-import { removeUserFromLocalStorage } from '../../../../utils/storage';
 import Button from '../../../UI/Button';
 
 const LogoutButton = () => {
@@ -8,7 +7,6 @@ const LogoutButton = () => {
 
   const _onLogout = (e) => {
     e.preventDefault();
-    removeUserFromLocalStorage();
     dispatch(onLogout());
   };
 
