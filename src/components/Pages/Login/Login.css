@@ -17,5 +17,6 @@ section.login img {
 }
 
 section.login .card-body {
-  width: 400px !important;
+  min-width: 400px;
+  width: auto !important;
 }

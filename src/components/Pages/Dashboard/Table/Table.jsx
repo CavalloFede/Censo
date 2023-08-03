@@ -1,19 +1,29 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  fetchGetPersonasByUser,
+  fetchGetOcupaciones,
+} from '../../../../services/censoAPI';
+import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
+import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
 
-import logo from "./logo.svg";
-import Alert from "../../../UI/Alert";
-import Select from "../../../UI/Select";
-import ToDoItemRow from "./ItemRow";
-import "./Table.css";
+import logo from './logo.svg';
+import Alert from '../../../UI/Alert';
+import Select from '../../../UI/Select';
+import ToDoItemRow from './ItemRow';
+import './Table.css';
 
 const Table = () => {
+  const dispatch = useDispatch();
+
+  const userLogged = useSelector((state) => state.user.userLogged);
   const usersData = useSelector((state) => state.censo.censados);
   const ocupacionesData = useSelector(
     (state) => state.ocupaciones.ocupacionesData
   );
-  const [ocupacion, setOcupacion] = useState("");
+
+  const [ocupacion, setOcupacion] = useState('');
   const [filteredUsers, setFilteredUsers] = useState(usersData);
 
   const handleInputChange = (event) => {
@@ -22,7 +32,28 @@ const Table = () => {
   };
 
   useEffect(() => {
-    if (ocupacion !== "") {
+    if (userLogged) {
+      fetchGetPersonasByUser(userLogged.apiKey, userLogged.id)
+        .then((users) => {
+          dispatch(iniciarCensados(users.personas));
+        })
+        .catch((e) => {
+          console.error(e.message);
+        });
+
+      fetchGetOcupaciones(userLogged.apiKey, userLogged.id)
+        .then((ocupaciones) => {
+          dispatch(iniciarOcupaciones(ocupaciones.ocupaciones));
+        })
+        .catch((e) => {
+          console.error(e.message);
+        });
+    }
+  }, [userLogged, dispatch]);
+
+  useEffect(() => {
+    if (ocupacion !== '') {
+      console.log('hola');
       const filteredUsersData = usersData.filter(
         (user) => user.ocupacion === parseInt(ocupacion)
       );
@@ -69,8 +100,8 @@ const Table = () => {
                 </tbody>
               ) : (
                 <Alert
-                  classColor={"primary"}
-                  message={"Aún no tienes Usuarios Censados"}
+                  classColor={'primary'}
+                  message={'Aún no tienes Usuarios Censados'}
                 />
               )}
             </table>

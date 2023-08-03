@@ -1,75 +1,50 @@
-import React, { Component } from "react";
-import Chart from "react-apexcharts";
-
-class Donut extends Component {
-  constructor(props) {
-    super(props);
-    const hasDataToShow =
-      props.departamentos.length > 0 && props.personas.length > 0;
-    this.state = {
-      options: {
-        colors: [
-          "#FF5733", // Red
-          "#33FF57", // Green
-          "#5733FF", // Blue
-          "#FF33A9", // Pink
-          "#33A9FF", // Light Blue
-          "#FFC300", // Yellow
-          "#FF8333", // Orange
-          "#33FFC3", // Light Green
-          "#33FF33", // Bright Green
-          "#FF3366", // Magenta
-          "#A933FF", // Purple
-          "#FFA933", // Dark Orange
-          "#33C3FF", // Sky Blue
-          "#A9FF33", // Lime Green
-          "#A9FFA9", // Pale Green
-          "#FFA9FF", // Lavender
-          "#FF33FF", // Fuchsia
-          "#33FF99", // Mint Green
-          "#FF9933", // Gold
-        ],
-        labels: props.departamentos,
+import ReactApexChart from 'react-apexcharts';
+const Donut = ({ usersByState, departmentsName }) => {
+  const hasDataToShow = departmentsName.length > 0 && usersByState.length > 0;
+  const data = {
+    series: usersByState,
+    options: {
+      chart: {
+        type: 'pie',
       },
-      series: props.personas,
-      hasDataToShow: hasDataToShow,
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.departamentos !== this.props.departamentos ||
-      prevProps.personas !== this.props.personas
-    ) {
-      const hasDataToShow =
-        this.props.departamentos.length > 18 && this.props.personas.length > 18;
-      this.setState({
-        options: {
-          ...this.state.options,
-          labels: this.props.departamentos,
-        },
-        series: this.props.personas,
-        hasDataToShow: hasDataToShow,
-      });
-    }
-  }
-
-  render() {
-    return (
-      <div className="donut">
-        {this.state.hasDataToShow ? (
-          <Chart
-            options={this.state.options}
-            series={this.state.series}
-            type="donut"
-            width="380"
-          />
-        ) : (
-          <p>No hay datos para mostrar.</p>
-        )}
-      </div>
-    );
-  }
-}
+      labels: departmentsName,
+      colors: [
+        '#FF5733',
+        '#33FF57',
+        '#5733FF',
+        '#FF33A9',
+        '#33A9FF',
+        '#FFC300',
+        '#FF8333',
+        '#33FFC3',
+        '#33FF33',
+        '#FF3366',
+        '#A933FF',
+        '#FFA933',
+        '#33C3FF',
+        '#A9FF33',
+        '#A9FFA9',
+        '#FFA9FF',
+        '#FF33FF',
+        '#33FF99',
+        '#FF9933',
+      ],
+    },
+  };
+  return (
+    <div id="chart">
+      {hasDataToShow ? (
+        <ReactApexChart
+          options={data.options}
+          series={data.series}
+          type="donut"
+          height={300}
+        />
+      ) : (
+        <p>No hay datos para mostrar.</p>
+      )}
+    </div>
+  );
+};
 
 export default Donut;

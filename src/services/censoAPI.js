@@ -2,7 +2,7 @@ import { setUserToLocalStorage } from '../utils/storage';
 
 const BASE_URL = 'https://censo.develotion.com';
 
-const fetchLogin = async (username, password) => {
+async function fetchLogin(username, password) {
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -35,9 +35,9 @@ const fetchLogin = async (username, password) => {
       message: error,
     });
   }
-};
+}
 
-const fetchRegister = async (username, password) => {
+async function fetchRegister(username, password) {
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -70,7 +70,7 @@ const fetchRegister = async (username, password) => {
       message: error,
     });
   }
-};
+}
 
 async function fetchGetDepartamentos(apiKey, idUser) {
   const requestOptions = {
@@ -279,6 +279,7 @@ async function fetchGetOcupaciones(apiKey, idUser) {
     });
   }
 }
+
 async function fetchGetTotalCenso(apiKey, idUser) {
   const requestOptions = {
     method: 'GET',

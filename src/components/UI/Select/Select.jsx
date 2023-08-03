@@ -18,11 +18,11 @@ const Select = ({ options, value, onChange, name }) => {
 
 Select.defaultProps = {
   options: [
-    { id: 1, nombre: "fede" },
-    { id: 2, nombre: "agus" },
+    { id: 1, nombre: 'fede' },
+    { id: 2, nombre: 'agus' },
   ],
-  value: "btn-primary",
-  name: "Texto",
+  value: 'btn-primary',
+  name: 'Texto',
   onChange: () => {},
 };
 

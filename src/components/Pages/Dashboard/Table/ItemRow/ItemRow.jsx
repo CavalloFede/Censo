@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { onDelete } from '../../../../../app/slices/censoSlice';
 import { delPersona } from '../../../../../services/censoAPI';
+import { useEffect, useState } from 'react';
+
 import Button from '../../../../UI/Button/Button';
 const ItemRow = ({ id, nombre, ocupacion, ocupaciones }) => {
   const dispatch = useDispatch();
+  const [ocupacionMostrar, setOcupacionMostrar] = useState(0);
 
   const userLogged = useSelector((state) => state.user.userLogged);
 
@@ -12,12 +15,21 @@ const ItemRow = ({ id, nombre, ocupacion, ocupaciones }) => {
       dispatch(onDelete(id));
     });
   };
+  useEffect(() => {
+    if (ocupacion > 5) {
+      setOcupacionMostrar(ocupacion - 2);
+    } else {
+      setOcupacionMostrar(ocupacion - 1);
+    }
+  }, [ocupacion]);
 
   return (
     <tr>
       <th scope="row">{id}</th>
       <td>{nombre}</td>
-      <td>{ocupaciones[ocupacion].ocupacion ?? 'No tiene trabajo xd'}</td>
+      <td>
+        {ocupaciones[ocupacionMostrar].ocupacion ?? 'No tiene trabajo xd'}
+      </td>
       <td>
         <Button
           cta={'Delete'}

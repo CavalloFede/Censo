@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { onInitial as iniciarDepartamentos } from "../../../../../app/slices/departamentosSlice";
-import { onInitial as iniciarOcupaciones } from "../../../../../app/slices/ocupacionesSlice";
-import { onInitial as iniciarCiudades } from "../../../../../app/slices/ciudadesSlice";
-import { onAdd as agregarPersona } from "../../../../../app/slices/censoSlice";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { onInitial as iniciarDepartamentos } from '../../../../../app/slices/departamentosSlice';
+import { onInitial as iniciarOcupaciones } from '../../../../../app/slices/ocupacionesSlice';
+import { onInitial as iniciarCiudades } from '../../../../../app/slices/ciudadesSlice';
+import { onAdd as agregarPersona } from '../../../../../app/slices/censoSlice';
 import {
   addPersona,
   fetchGetDepartamentos,
   fetchGetOcupaciones,
   fetchGetCiudadesByDepartamento,
-} from "../../../../../services/censoAPI";
+} from '../../../../../services/censoAPI';
 
-import Select from "../../../../UI/Select";
-import Button from "../../../../UI/Button";
+import Select from '../../../../UI/Select';
+import Button from '../../../../UI/Button';
+import Alert from '../../../../UI/Alert';
 
 const RegisterPeopleForm = () => {
   const dispatch = useDispatch();
@@ -26,39 +27,40 @@ const RegisterPeopleForm = () => {
     (state) => state.ocupaciones.ocupacionesData
   );
 
+  const [alertInfo, setAlertInfo] = useState({ message: '', classColor: '' });
   const [opcionesOcupacion, setOpcionesOcupacion] = useState(ocupacionesData);
   const [isFormComplete, setIsFormComplete] = useState(true);
   const [persona, setPersona] = useState({
-    id: "",
-    nombre: "",
-    departamento: "",
-    ciudad: "",
-    fechaNacimiento: "",
-    ocupacion: "",
-    ocupacionName: "",
+    id: '',
+    nombre: '',
+    departamento: '',
+    ciudad: '',
+    fechaNacimiento: '',
+    ocupacion: '',
+    ocupacionName: '',
   });
 
   const resetPersonaState = () => {
     setPersona({
-      id: "",
-      nombre: "",
-      departamento: "",
-      ciudad: "",
-      fechaNacimiento: "",
-      ocupacion: "",
-      ocupacionName: "",
+      id: '',
+      nombre: '',
+      departamento: '',
+      ciudad: '',
+      fechaNacimiento: '',
+      ocupacion: '',
+      ocupacionName: '',
     });
   };
 
-  const formattedToday = new Date().toISOString().split("T")[0];
+  const formattedToday = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
     const isComplete =
-      persona.nombre.trim() !== "" &&
-      persona.departamento.trim() !== "" &&
-      persona.ciudad.trim() !== "" &&
-      persona.fechaNacimiento.trim() !== "" &&
-      persona.ocupacion.trim() !== "";
+      persona.nombre.trim() !== '' &&
+      persona.departamento.trim() !== '' &&
+      persona.ciudad.trim() !== '' &&
+      persona.fechaNacimiento.trim() !== '' &&
+      persona.ocupacion.trim() !== '';
     setIsFormComplete(!isComplete);
   }, [persona]);
 
@@ -69,7 +71,7 @@ const RegisterPeopleForm = () => {
           dispatch(iniciarDepartamentos(departamentos.departamentos));
         })
         .catch((e) => {
-          console.error(e.message); //cambiar error
+          console.error(e.message);
         });
 
       fetchGetOcupaciones(userLogged.apiKey, userLogged.id)
@@ -77,7 +79,7 @@ const RegisterPeopleForm = () => {
           dispatch(iniciarOcupaciones(ocupaciones.ocupaciones));
         })
         .catch((e) => {
-          console.error(e.message); //cambiar error
+          console.error(e.message);
         });
     }
   }, [userLogged, dispatch]);
@@ -93,7 +95,7 @@ const RegisterPeopleForm = () => {
           dispatch(iniciarCiudades(ciudadesObtenidas.ciudades));
         })
         .catch((error) => {
-          console.log("Hubo un error al obtener los ciudades");
+          console.log('Hubo un error al obtener los ciudades');
         });
     }
   }, [persona.departamento, userLogged, dispatch]);
@@ -101,7 +103,7 @@ const RegisterPeopleForm = () => {
   useEffect(() => {
     const filteredOcupaciones =
       persona.fechaNacimiento && calcularEdad(persona.fechaNacimiento) < 18
-        ? [ocupacionesData.find((opcion) => opcion.ocupacion === "Estudiante")]
+        ? [ocupacionesData.find((opcion) => opcion.ocupacion === 'Estudiante')]
         : ocupacionesData;
 
     setOpcionesOcupacion(filteredOcupaciones);
@@ -125,10 +127,20 @@ const RegisterPeopleForm = () => {
         persona.ciudad = parseInt(persona.ciudad);
 
         dispatch(agregarPersona(persona));
+        setAlertInfo({ message: 'Censo exitoso', classColor: 'success' });
         resetPersonaState();
+        setTimeout(() => {
+          setAlertInfo({ message: '', classColor: '' });
+        }, 2000);
       })
       .catch((error) => {
-        console.log("Hubo un error al censar a la persona");
+        setAlertInfo({
+          message: error.message || 'Ha ocurrido un error',
+          classColor: 'danger',
+        });
+        setTimeout(() => {
+          setAlertInfo({ message: '', classColor: '' });
+        }, 2000);
       });
   };
 
@@ -154,6 +166,9 @@ const RegisterPeopleForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {alertInfo.message && (
+        <Alert classColor={alertInfo.classColor} message={alertInfo.message} />
+      )}
       <label>Nombre:</label>
       <br />
       <input
@@ -204,8 +219,8 @@ const RegisterPeopleForm = () => {
       )}
       <br />
       <Button
-        cta={"Censar"}
-        classColor={"btn-primary"}
+        cta={'Censar'}
+        classColor={'btn-primary'}
         disabled={isFormComplete}
       />
     </form>
