@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   fetchGetPersonasByUser,
   fetchGetDepartamentos,
   fetchGetOcupaciones,
   fetchGetTotalCenso,
-} from '../../../../services/censoAPI';
-import { Link } from 'react-router-dom';
-import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
-import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
-import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
+} from "../../../../services/censoAPI";
+import { Link } from "react-router-dom";
+import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
+import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
+import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
 
-import Donut from './Donut';
-import Bar from './Bar';
-import Timer from './Timer';
-import Percentage from './Percentage';
+import Donut from "./Donut";
+import Bar from "./Bar";
+import Timer from "./Timer";
 
 const Chart = () => {
   const dispatch = useDispatch();
@@ -130,8 +129,6 @@ const Chart = () => {
               />
               <br />
               <Timer />
-              <br />
-              <Percentage totalUsers={totalUsers} usersByUser={usersData} />
               <br />
               <Link to="/dashboard">Volver</Link>
             </div>

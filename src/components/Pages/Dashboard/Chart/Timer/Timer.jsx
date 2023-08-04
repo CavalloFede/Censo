@@ -1,6 +1,6 @@
-import React from 'react';
-import './Timer.css';
-import { useState, useEffect } from 'react';
+import React from "react";
+import "./Timer.css";
+import { useState, useEffect } from "react";
 
 const Timer = () => {
   const [days, setDays] = useState(0);
@@ -8,7 +8,7 @@ const Timer = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
-  const deadline = 'August, 31, 2023';
+  const deadline = "August, 31, 2023";
 
   const getTime = () => {
     const time = Date.parse(deadline) - Date.now();
@@ -27,28 +27,29 @@ const Timer = () => {
 
   return (
     <div className="timer">
+      <h1>Tiempo restante del Censo:</h1>
       <div className="timer" role="timer">
         <div className="col-4">
           <div className="box">
-            <p id="day">{days < 10 ? '0' + days : days}</p>
+            <p id="day">{days < 10 ? "0" + days : days}</p>
             <span className="text">Days</span>
           </div>
         </div>
         <div className="col-4">
           <div className="box">
-            <p id="hour">{hours < 10 ? '0' + hours : hours}</p>
+            <p id="hour">{hours < 10 ? "0" + hours : hours}</p>
             <span className="text">Hours</span>
           </div>
         </div>
         <div className="col-4">
           <div className="box">
-            <p id="minute">{minutes < 10 ? '0' + minutes : minutes}</p>
+            <p id="minute">{minutes < 10 ? "0" + minutes : minutes}</p>
             <span className="text">Minutes</span>
           </div>
         </div>
         <div className="col-4">
           <div className="box">
-            <p id="second">{seconds < 10 ? '0' + seconds : seconds}</p>
+            <p id="second">{seconds < 10 ? "0" + seconds : seconds}</p>
             <span className="text">Seconds</span>
           </div>
         </div>

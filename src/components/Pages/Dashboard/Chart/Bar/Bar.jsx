@@ -1,40 +1,41 @@
-import ReactApexChart from 'react-apexcharts'
+import ReactApexChart from "react-apexcharts";
 
 const Bar = ({ usersByOcupation, ocupationsName }) => {
   const data = {
     series: [
       {
-        data: usersByOcupation
-      }
+        data: usersByOcupation,
+      },
     ],
     options: {
       chart: {
-        type: 'bar'
+        type: "bar",
       },
       plotOptions: {
         bar: {
           borderRadius: 4,
-          horizontal: true
-        }
+          horizontal: true,
+        },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       xaxis: {
-        categories: ocupationsName
-      }
-    }
-  }
+        categories: ocupationsName,
+      },
+    },
+  };
   return (
     <div>
       <ReactApexChart
         options={data.options}
         series={data.series}
-        type='bar'
+        type="bar"
         height={300}
+        width={600}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Bar
+export default Bar;

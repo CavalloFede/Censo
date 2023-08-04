@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   fetchGetPersonasByUser,
   fetchGetOcupaciones,
-} from '../../../../services/censoAPI';
-import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
-import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
+} from "../../../../services/censoAPI";
+import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
+import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
 
-import logo from './logo.svg';
-import Alert from '../../../UI/Alert';
-import Select from '../../../UI/Select';
-import ToDoItemRow from './ItemRow';
-import './Table.css';
+import logo from "./logo.svg";
+import Alert from "../../../UI/Alert";
+import Select from "../../../UI/Select";
+import ToDoItemRow from "./ItemRow";
+import "./Table.css";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Table = () => {
     (state) => state.ocupaciones.ocupacionesData
   );
 
-  const [ocupacion, setOcupacion] = useState('');
+  const [ocupacion, setOcupacion] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(usersData);
 
   const handleInputChange = (event) => {
@@ -52,8 +52,8 @@ const Table = () => {
   }, [userLogged, dispatch]);
 
   useEffect(() => {
-    if (ocupacion !== '') {
-      console.log('hola');
+    if (ocupacion !== "") {
+      console.log("hola");
       const filteredUsersData = usersData.filter(
         (user) => user.ocupacion === parseInt(ocupacion)
       );
@@ -76,35 +76,37 @@ const Table = () => {
               name={ocupacion}
               onChange={handleInputChange}
             ></Select>
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Ocupacion</th>
-                  <th scope="col">Borrar</th>
-                </tr>
-              </thead>
+            <div className="table-responsive" style={{ maxHeight: "400px" }}>
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Ocupacion</th>
+                    <th scope="col">Borrar</th>
+                  </tr>
+                </thead>
 
-              {filteredUsers.length > 0 ? (
-                <tbody>
-                  {filteredUsers.map(({ id, nombre, ocupacion }) => (
-                    <ToDoItemRow
-                      key={id}
-                      id={id}
-                      nombre={nombre}
-                      ocupacion={ocupacion}
-                      ocupaciones={ocupacionesData}
-                    />
-                  ))}
-                </tbody>
-              ) : (
-                <Alert
-                  classColor={'primary'}
-                  message={'Aún no tienes Usuarios Censados'}
-                />
-              )}
-            </table>
+                {filteredUsers.length > 0 ? (
+                  <tbody>
+                    {filteredUsers.map(({ id, nombre, ocupacion }) => (
+                      <ToDoItemRow
+                        key={id}
+                        id={id}
+                        nombre={nombre}
+                        ocupacion={ocupacion}
+                        ocupaciones={ocupacionesData}
+                      />
+                    ))}
+                  </tbody>
+                ) : (
+                  <Alert
+                    classColor={"primary"}
+                    message={"Aún no tienes Usuarios Censados"}
+                  />
+                )}
+              </table>
+            </div>
             <Link to="/dashboard">Volver</Link>
           </section>
         </div>

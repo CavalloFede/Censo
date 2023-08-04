@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import Button from '../../UI/Button';
+import Button from "../../UI/Button";
+import Counters from "./Counters";
 
 const Dashboard = () => {
   return (
     <>
       <div className="container justify-content-center align-items-center ">
         <div className="card text-center ">
+          <Counters />
           <div className="card-header">
             <h5 className="card-title">Menú Censista</h5>
           </div>
