@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   fetchGetPersonasByUser,
   fetchGetOcupaciones,
-} from "../../../../services/censoAPI";
-import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
-import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
+  fetchGetDepartamentos,
+} from '../../../../services/censoAPI';
+import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
+import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
+import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
 
-import logo from "./logo.svg";
-import Alert from "../../../UI/Alert";
-import Select from "../../../UI/Select";
-import ToDoItemRow from "./ItemRow";
-import "./Table.css";
+import logo from './logo.svg';
+import Alert from '../../../UI/Alert';
+import Select from '../../../UI/Select';
+import ToDoItemRow from './ItemRow';
+import './Table.css';
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,11 @@ const Table = () => {
   const ocupacionesData = useSelector(
     (state) => state.ocupaciones.ocupacionesData
   );
+  const departamentosData = useSelector(
+    (state) => state.departamentos.departamentosData
+  );
 
-  const [ocupacion, setOcupacion] = useState("");
+  const [ocupacion, setOcupacion] = useState('');
   const [filteredUsers, setFilteredUsers] = useState(usersData);
 
   const handleInputChange = (event) => {
@@ -48,12 +53,19 @@ const Table = () => {
         .catch((e) => {
           console.error(e.message);
         });
+      fetchGetDepartamentos(userLogged.apiKey, userLogged.id)
+        .then((departamentos) => {
+          dispatch(iniciarDepartamentos(departamentos.departamentos));
+        })
+        .catch((e) => {
+          console.error(e.message);
+        });
     }
   }, [userLogged, dispatch]);
 
   useEffect(() => {
-    if (ocupacion !== "") {
-      console.log("hola");
+    if (ocupacion !== '') {
+      console.log('hola');
       const filteredUsersData = usersData.filter(
         (user) => user.ocupacion === parseInt(ocupacion)
       );
@@ -76,12 +88,13 @@ const Table = () => {
               name={ocupacion}
               onChange={handleInputChange}
             ></Select>
-            <div className="table-responsive" style={{ maxHeight: "400px" }}>
+            <div className="table-responsive" style={{ maxHeight: '400px' }}>
               <table className="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Departamento</th>
                     <th scope="col">Ocupacion</th>
                     <th scope="col">Borrar</th>
                   </tr>
@@ -89,20 +102,24 @@ const Table = () => {
 
                 {filteredUsers.length > 0 ? (
                   <tbody>
-                    {filteredUsers.map(({ id, nombre, ocupacion }) => (
-                      <ToDoItemRow
-                        key={id}
-                        id={id}
-                        nombre={nombre}
-                        ocupacion={ocupacion}
-                        ocupaciones={ocupacionesData}
-                      />
-                    ))}
+                    {filteredUsers.map(
+                      ({ id, nombre, ocupacion, departamento }) => (
+                        <ToDoItemRow
+                          key={id}
+                          id={id}
+                          nombre={nombre}
+                          ocupacion={ocupacion}
+                          ocupaciones={ocupacionesData}
+                          departamento={departamento}
+                          departamentos={departamentosData}
+                        />
+                      )
+                    )}
                   </tbody>
                 ) : (
                   <Alert
-                    classColor={"primary"}
-                    message={"Aún no tienes Usuarios Censados"}
+                    classColor={'primary'}
+                    message={'Aún no tienes Usuarios Censados'}
                   />
                 )}
               </table>

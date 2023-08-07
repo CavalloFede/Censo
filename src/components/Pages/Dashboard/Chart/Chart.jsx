@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchGetPersonasByUser,
   fetchGetDepartamentos,
   fetchGetOcupaciones,
-  fetchGetTotalCenso,
-} from "../../../../services/censoAPI";
-import { Link } from "react-router-dom";
-import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
-import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
-import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
+} from '../../../../services/censoAPI';
+import { Link } from 'react-router-dom';
+import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
+import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
+import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
 
-import Donut from "./Donut";
-import Bar from "./Bar";
-import Timer from "./Timer";
+import Donut from './Donut';
+import Bar from './Bar';
+import Timer from './Timer';
+import PeopleMap from './PeopleMap';
 
 const Chart = () => {
   const dispatch = useDispatch();
@@ -28,21 +28,12 @@ const Chart = () => {
   );
 
   const [usersByState, setUsersByState] = useState([]);
-  const [totalUsers, setTotalUsers] = useState(0);
   const [usersByOcupation, setUsersByOcupation] = useState([]);
   const [departmentsName, setDepartmentsName] = useState([]);
   const [ocupationsName, setOcupationsName] = useState([]);
 
   useEffect(() => {
     if (userLogged) {
-      fetchGetTotalCenso(userLogged.apiKey, userLogged.id)
-        .then((total) => {
-          setTotalUsers(total.total);
-        })
-        .catch((e) => {
-          console.error(e.message);
-        });
-
       fetchGetPersonasByUser(userLogged.apiKey, userLogged.id)
         .then((users) => {
           dispatch(iniciarCensados(users.personas));
@@ -70,9 +61,7 @@ const Chart = () => {
 
   useEffect(() => {
     if (usersData && departamentosData && ocupacionesData) {
-      const cantidadPersonasPorDepartamento = departamentosData.map(
-        (departamento) => 0
-      );
+      const cantidadPersonasPorDepartamento = departamentosData.map(() => 0);
 
       const minDepartamentoId = Math.min(
         ...departamentosData.map((departamento) => departamento.id)
@@ -86,9 +75,7 @@ const Chart = () => {
 
       setUsersByState(cantidadPersonasPorDepartamento);
 
-      const cantidadDePersonasPorOcupacion = ocupacionesData.map(
-        (ocupacion) => 0
-      );
+      const cantidadDePersonasPorOcupacion = ocupacionesData.map(() => 0);
 
       usersData.forEach((persona) => {
         if (persona.ocupacion > 5) {
@@ -126,6 +113,11 @@ const Chart = () => {
               <Bar
                 usersByOcupation={usersByOcupation}
                 ocupationsName={ocupationsName}
+              />
+              <br />
+              <PeopleMap
+                departamentos={departamentosData}
+                usersByState={usersByState}
               />
               <br />
               <Timer />
