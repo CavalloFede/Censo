@@ -122,7 +122,7 @@ const SingUpForm = () => {
             message={alertInfo.message}
           />
         )}
-        <label>Username</label>
+        <label>Usuario</label>
         <br />
         <input
           className="form-control"
@@ -132,7 +132,7 @@ const SingUpForm = () => {
           onChange={_onHandleChange}
         />
         <br />
-        <label>Password</label>
+        <label>Contraseña</label>
         <br />
         <input
           className="form-control"

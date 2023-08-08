@@ -10,7 +10,6 @@ import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice"
 import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
 import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
 
-import logo from "./logo.svg";
 import Alert from "../../../UI/Alert";
 import Select from "../../../UI/Select";
 import ToDoItemRow from "./ItemRow";

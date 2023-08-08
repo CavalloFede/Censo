@@ -1,9 +1,12 @@
+import "./Counter.css";
+
 const Counter = ({ title, amount }) => {
   return (
-    <>
-      <h2>{title}</h2>
-      <h2>{amount}</h2>
-    </>
+    <div className="Counter">
+      <h2>
+        {title} {amount}
+      </h2>
+    </div>
   );
 };
 

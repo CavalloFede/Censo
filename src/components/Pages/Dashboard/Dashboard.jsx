@@ -23,7 +23,8 @@ const Dashboard = () => {
             <Link to="/dashboard/stats">
               <Button classColor="btn-info" cta="Análisis" width="200px" />
             </Link>
-            <br />
+          </div>
+          <div className="card-footer">
             <Counters />
           </div>
         </div>

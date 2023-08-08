@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   fetchGetPersonasByUser,
   fetchGetDepartamentos,
   fetchGetOcupaciones,
-} from '../../../../services/censoAPI';
-import { Link } from 'react-router-dom';
-import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
-import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
-import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
+} from "../../../../services/censoAPI";
+import { Link } from "react-router-dom";
+import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
+import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
+import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
 
-import Donut from './Donut';
-import Bar from './Bar';
-import Timer from './Timer';
-import PeopleMap from './PeopleMap';
-import Progress from './Progress';
+import Donut from "./Donut";
+import Bar from "./Bar";
+import Timer from "./Timer";
+import PeopleMap from "./PeopleMap";
+import Progress from "./Progress";
 
 const Chart = () => {
   const dispatch = useDispatch();
@@ -101,7 +101,7 @@ const Chart = () => {
     <>
       <section className="justify-content-center ventana">
         <div className="container card">
-          <h1 className="card-title">Stats</h1>
+          <h1 className="card-title">Análisis</h1>
           <div className="row w-100 mx-0">
             <div className="col-6 ">
               <Timer />

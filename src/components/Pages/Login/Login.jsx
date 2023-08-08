@@ -20,7 +20,7 @@ const Login = () => {
       <section className="d-flex flex-md justify-content-center ventana">
         <div className="card shadow-p">
           <img src={logo_censo} width="120" height="90" alt="Logo" />
-          <h3>Login</h3>
+          <h3>Iniciar Sesión</h3>
           <section className="card-body">
             <LoginForm />
             <br />
