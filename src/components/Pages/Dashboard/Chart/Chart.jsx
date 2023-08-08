@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchGetPersonasByUser,
   fetchGetDepartamentos,
   fetchGetOcupaciones,
-} from "../../../../services/censoAPI";
-import { Link } from "react-router-dom";
-import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
-import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
-import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
+} from '../../../../services/censoAPI';
+import { Link } from 'react-router-dom';
+import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
+import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
+import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
 
-import Donut from "./Donut";
-import Bar from "./Bar";
-import Timer from "./Timer";
-import PeopleMap from "./PeopleMap";
-import Progress from "./Progress";
+import Donut from './Donut';
+import Bar from './Bar';
+import Timer from './Timer';
+import PeopleMap from './PeopleMap';
+import Progress from './Progress';
 
 const Chart = () => {
   const dispatch = useDispatch();
@@ -103,18 +103,35 @@ const Chart = () => {
         <div className="container card">
           <h5 className="card-title">Stats</h5>
 
-          <div className="row">
-            <div className="col bg-primary">1 of 2</div>
-            <div className="col bg-secondary">2 of 2</div>
+          <div className="row w-100 mx-0">
+            <div className="col-6 bg-primary">
+              <Timer />
+            </div>
+            <div className="col-6 bg-secondary">
+              <Progress censadosPorUsuario={usersData.length} />
+            </div>
           </div>
-          <div className="row">
-            <div className="col ">
-              <div className="row ">
-                <div className="row bg-success">1 of 2 (nested)</div>
-                <div className="row bg-info ">2 of 2 (nested)</div>
+          <div className="row w-100 mx-0">
+            <div className="col px-0 col-6">
+              <div className="row w-100 mx-0 bg-success">
+                <Donut
+                  usersByState={usersByState}
+                  departmentsName={departmentsName}
+                />
+              </div>
+              <div className="row w-100 mx-0 bg-info ">
+                <Bar
+                  usersByOcupation={usersByOcupation}
+                  ocupationsName={ocupationsName}
+                />
               </div>
             </div>
-            <div className="col bg-danger ">2 of 2 (row 2)</div>
+            <div className="col col-6 bg-danger ">
+              <PeopleMap
+                departamentos={departamentosData}
+                usersByState={usersByState}
+              />
+            </div>
           </div>
         </div>
       </section>
