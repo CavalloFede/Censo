@@ -64,7 +64,6 @@ const Table = () => {
 
   useEffect(() => {
     if (ocupacion !== "") {
-      console.log("hola");
       const filteredUsersData = usersData.filter(
         (user) => user.ocupacion === parseInt(ocupacion)
       );

@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { onDelete } from '../../../../../app/slices/censoSlice';
-import { delPersona } from '../../../../../services/censoAPI';
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { onDelete } from "../../../../../app/slices/censoSlice";
+import { delPersona } from "../../../../../services/censoAPI";
+import { useEffect, useState } from "react";
 
-import Button from '../../../../UI/Button/Button';
+import Button from "../../../../UI/Button/Button";
 const ItemRow = ({
   id,
   nombre,
@@ -19,7 +19,6 @@ const ItemRow = ({
   const minDepartamentoId = Math.min(
     ...departamentos.map((departamento) => departamento.id)
   );
-  console.log(departamentos);
 
   const _onDelete = () => {
     delPersona(userLogged.apiKey, userLogged.id, id).then(() => {
@@ -41,11 +40,11 @@ const ItemRow = ({
       <td>{nombre}</td>
       <td>{departamentos[departamento - minDepartamentoId].nombre}</td>
       <td>
-        {ocupaciones[ocupacionMostrar].ocupacion ?? 'No tiene trabajo xd'}
+        {ocupaciones[ocupacionMostrar].ocupacion ?? "No tiene trabajo xd"}
       </td>
       <td>
         <Button
-          cta={'Delete'}
+          cta={"Delete"}
           classColor="btn-danger"
           onHandleClick={_onDelete}
         />

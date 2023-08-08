@@ -99,34 +99,22 @@ const Chart = () => {
 
   return (
     <>
-      <section className="d-flex flex-md justify-content-center ventana">
-        <div className="card text-center ">
-          <div className="card-header">
-            <h5 className="card-title">Stats</h5>
+      <section className="justify-content-center ventana">
+        <div className="container card">
+          <h5 className="card-title">Stats</h5>
+
+          <div className="row">
+            <div className="col bg-primary">1 of 2</div>
+            <div className="col bg-secondary">2 of 2</div>
           </div>
-          <div className="card-body d-flex flex-sm-column ">
-            <div className="card-body">
-              <Donut
-                usersByState={usersByState}
-                departmentsName={departmentsName}
-              />
-              <br />
-              <PeopleMap
-                departamentos={departamentosData}
-                usersByState={usersByState}
-              />
-              <br />
-              <Bar
-                usersByOcupation={usersByOcupation}
-                ocupationsName={ocupationsName}
-              />
-              <br />
-              <Timer />
-              <br />
-              <Progress censadosPorUsuario={usersData.length} />
-              <br />
-              <Link to="/dashboard">Volver</Link>
+          <div className="row">
+            <div className="col ">
+              <div className="row ">
+                <div className="row bg-success">1 of 2 (nested)</div>
+                <div className="row bg-info ">2 of 2 (nested)</div>
+              </div>
             </div>
+            <div className="col bg-danger ">2 of 2 (row 2)</div>
           </div>
         </div>
       </section>
