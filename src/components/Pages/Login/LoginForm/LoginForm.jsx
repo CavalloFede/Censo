@@ -144,7 +144,7 @@ const SingUpForm = () => {
         <br />
         <br />
         <Button
-          cta={"Login"}
+          cta={"Iniciar Sesión"}
           classColor={"btn-primary"}
           onHandleClick={_onHandleLogin}
           disabled={btnDisabled}

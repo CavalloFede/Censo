@@ -8,7 +8,7 @@ const SignUp = () => {
     <>
       <section className="d-flex flex-md justify-content-center ventana">
         <div className="card shadow-p">
-          <img src={logo} width="70" height="70" alt="Logo" />
+          <img src={logo} width="120" height="90" alt="Logo" />
           <h3>Registrarse</h3>
           <section className="card-body">
             <SignUpForm />

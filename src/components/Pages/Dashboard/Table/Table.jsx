@@ -85,40 +85,46 @@ const Table = () => {
               onChange={handleInputChange}
             ></Select>
             <div className="table-responsive" style={{ maxHeight: "600px" }}>
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Departamento</th>
-                    <th scope="col">Ocupacion</th>
-                    <th scope="col">Borrar</th>
-                  </tr>
-                </thead>
-
-                {filteredUsers.length > 0 ? (
-                  <tbody>
-                    {filteredUsers.map(
-                      ({ id, nombre, ocupacion, departamento }) => (
-                        <ToDoItemRow
-                          key={id}
-                          id={id}
-                          nombre={nombre}
-                          ocupacion={ocupacion}
-                          ocupaciones={ocupacionesData}
-                          departamento={departamento}
-                          departamentos={departamentosData}
-                        />
-                      )
-                    )}
-                  </tbody>
+              {usersData.length > 0 ? (
+                filteredUsers.length > 0 ? (
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Departamento</th>
+                        <th scope="col">Ocupacion</th>
+                        <th scope="col">Borrar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredUsers.map(
+                        ({ id, nombre, ocupacion, departamento }) => (
+                          <ToDoItemRow
+                            key={id}
+                            id={id}
+                            nombre={nombre}
+                            ocupacion={ocupacion}
+                            ocupaciones={ocupacionesData}
+                            departamento={departamento}
+                            departamentos={departamentosData}
+                          />
+                        )
+                      )}
+                    </tbody>
+                  </table>
                 ) : (
                   <Alert
                     classColor={"primary"}
-                    message={"Aún no tienes Usuarios Censados"}
+                    message={"Aún no hay personas censadas con esta ocupación"}
                   />
-                )}
-              </table>
+                )
+              ) : (
+                <Alert
+                  classColor={"danger"}
+                  message={"Aún no hay personas censadas"}
+                />
+              )}
             </div>
             <Link to="/dashboard">Volver</Link>
           </section>
