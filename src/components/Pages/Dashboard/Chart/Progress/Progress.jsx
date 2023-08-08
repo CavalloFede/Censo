@@ -10,14 +10,16 @@ const Progress = ({ censadosPorUsuario }) => {
 
   // Llamada a la API para obtener el total de censados
   useEffect(() => {
-    fetchGetTotalCenso(userLogged.apiKey, userLogged.id)
-      .then((data) => {
-        setTotalCensados(data.total);
-      })
-      .catch((e) => {
-        console.error(e.message);
-      });
-  }, []);
+    if (userLogged) {
+      fetchGetTotalCenso(userLogged.apiKey, userLogged.id)
+        .then((data) => {
+          setTotalCensados(data.total);
+        })
+        .catch((e) => {
+          console.error(e.message);
+        });
+    }
+  }, [userLogged]);
 
   // Calcular el porcentaje y actualizarlo cuando cambie el total de censados o la cantidad de censados por el usuario
   useEffect(() => {
