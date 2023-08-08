@@ -1,8 +1,9 @@
-const Button = ({ cta, classColor, onHandleClick, disabled }) => {
+const Button = ({ cta, classColor, onHandleClick, disabled, width }) => {
   return (
     <button
       disabled={disabled}
       className={`btn ${classColor}`}
+      style={{ width: width }}
       onClick={onHandleClick}
     >
       {cta}
@@ -11,8 +12,8 @@ const Button = ({ cta, classColor, onHandleClick, disabled }) => {
 };
 
 Button.defaultProps = {
-  classColor: 'btn-primary',
-  cta: 'Texto',
+  classColor: "btn-primary",
+  cta: "Texto",
   disabled: false,
   onHandleClick: () => {},
 };

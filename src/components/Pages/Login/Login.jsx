@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
-import './Login.css';
-import LoginForm from './LoginForm';
-import logo from './logo.svg';
+import LoginForm from "./LoginForm";
+import logo_censo from "./logo_censo.svg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,20 +11,20 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   }, [user, navigate]);
 
   return (
     <>
-      <section className="d-flex flex-md justify-content-center login">
+      <section className="d-flex flex-md justify-content-center ventana">
         <div className="card shadow-p">
-          <img src={logo} width="70" height="70" alt="Logo" />
+          <img src={logo_censo} width="120" height="90" alt="Logo" />
           <h3>Login</h3>
           <section className="card-body">
             <LoginForm />
             <br />
-            <Link to="/signup">No tienes cuenta?</Link>
+            <Link to="/signup">¿No tenés cuenta?</Link>
           </section>
         </div>
       </section>

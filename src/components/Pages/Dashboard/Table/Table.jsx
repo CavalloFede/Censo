@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   fetchGetPersonasByUser,
   fetchGetOcupaciones,
   fetchGetDepartamentos,
-} from '../../../../services/censoAPI';
-import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
-import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
-import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
+} from "../../../../services/censoAPI";
+import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
+import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
+import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
 
-import logo from './logo.svg';
-import Alert from '../../../UI/Alert';
-import Select from '../../../UI/Select';
-import ToDoItemRow from './ItemRow';
-import './Table.css';
+import logo from "./logo.svg";
+import Alert from "../../../UI/Alert";
+import Select from "../../../UI/Select";
+import ToDoItemRow from "./ItemRow";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ const Table = () => {
     (state) => state.departamentos.departamentosData
   );
 
-  const [ocupacion, setOcupacion] = useState('');
+  const [ocupacion, setOcupacion] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(usersData);
 
   const handleInputChange = (event) => {
@@ -64,8 +63,8 @@ const Table = () => {
   }, [userLogged, dispatch]);
 
   useEffect(() => {
-    if (ocupacion !== '') {
-      console.log('hola');
+    if (ocupacion !== "") {
+      console.log("hola");
       const filteredUsersData = usersData.filter(
         (user) => user.ocupacion === parseInt(ocupacion)
       );
@@ -77,9 +76,8 @@ const Table = () => {
 
   return (
     <>
-      <section className="d-flex flex-md justify-content-center login">
+      <section className="d-flex flex-md justify-content-center ventana">
         <div className="card shadow-p">
-          <img src={logo} width="70" height="70" alt="Logo" />
           <h3>Listado de personas censadas</h3>
           <section className="card-body">
             <Select
@@ -88,7 +86,7 @@ const Table = () => {
               name={ocupacion}
               onChange={handleInputChange}
             ></Select>
-            <div className="table-responsive" style={{ maxHeight: '400px' }}>
+            <div className="table-responsive" style={{ maxHeight: "400px" }}>
               <table className="table table-hover">
                 <thead>
                   <tr>
@@ -118,8 +116,8 @@ const Table = () => {
                   </tbody>
                 ) : (
                   <Alert
-                    classColor={'primary'}
-                    message={'Aún no tienes Usuarios Censados'}
+                    classColor={"primary"}
+                    message={"Aún no tienes Usuarios Censados"}
                   />
                 )}
               </table>

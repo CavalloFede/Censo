@@ -28,7 +28,7 @@ const Progress = ({ censadosPorUsuario }) => {
   }, [totalCensados, censadosPorUsuario]);
 
   return (
-    <div className="container mt-4">
+    <div>
       <h2>Porcentaje censado por mí:</h2>
       <br />
       <div className="progress" style={{ width: "100%" }}>

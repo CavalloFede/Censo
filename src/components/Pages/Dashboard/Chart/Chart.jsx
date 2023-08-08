@@ -99,7 +99,7 @@ const Chart = () => {
 
   return (
     <>
-      <div className="container justify-content-center align-items-center">
+      <section className="d-flex flex-md justify-content-center ventana">
         <div className="card text-center ">
           <div className="card-header">
             <h5 className="card-title">Stats</h5>
@@ -129,7 +129,7 @@ const Chart = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

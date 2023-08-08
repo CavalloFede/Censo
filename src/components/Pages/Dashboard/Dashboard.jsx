@@ -8,22 +8,23 @@ const Dashboard = () => {
     <>
       <div className="container justify-content-center align-items-center ">
         <div className="card text-center ">
-          <Counters />
           <div className="card-header">
             <h5 className="card-title">Menú Censista</h5>
           </div>
           <div className="card-body d-flex flex-sm-column ">
             <Link to="/dashboard/register">
-              <Button className="btn-primary" cta="Censar" />
+              <Button classColor="btn-info" cta="Censar" width="200px" />
             </Link>
             <br />
             <Link to="/dashboard/listado">
-              <Button className="btn-primary" cta="Listado" />
+              <Button classColor="btn-info" cta="Censados" width="200px" />
             </Link>
             <br />
             <Link to="/dashboard/stats">
-              <Button className="btn-primary" cta="Stats" />
+              <Button classColor="btn-info" cta="Análisis" width="200px" />
             </Link>
+            <br />
+            <Counters />
           </div>
         </div>
       </div>
