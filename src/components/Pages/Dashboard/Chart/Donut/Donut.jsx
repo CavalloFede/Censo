@@ -32,13 +32,9 @@ const Donut = ({ usersByState, departmentsName }) => {
     },
   };
   return (
-    <div>
+    <div className="w-100">
       <h2>Mis censados por departamento:</h2>
-      <div
-        id="chart"
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: 'auto' }}
-      >
+      <div id="chart" style={{ height: '100%' }}>
         {hasDataToShow ? (
           <ReactApexChart
             options={data.options}

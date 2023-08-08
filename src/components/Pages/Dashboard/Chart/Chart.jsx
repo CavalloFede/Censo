@@ -101,38 +101,39 @@ const Chart = () => {
     <>
       <section className="justify-content-center ventana">
         <div className="container card">
-          <h5 className="card-title">Stats</h5>
-
+          <h1 className="card-title">Stats</h1>
           <div className="row w-100 mx-0">
-            <div className="col-6 bg-primary">
+            <div className="col-6 ">
               <Timer />
             </div>
-            <div className="col-6 bg-secondary">
+            <div className="col-6 ">
               <Progress censadosPorUsuario={usersData.length} />
             </div>
           </div>
           <div className="row w-100 mx-0">
-            <div className="col px-0 col-6">
-              <div className="row w-100 mx-0 bg-success">
+            <div className="col col-6">
+              <div className="row w-100 mx-0 mb-5">
                 <Donut
                   usersByState={usersByState}
                   departmentsName={departmentsName}
                 />
               </div>
-              <div className="row w-100 mx-0 bg-info ">
+              <div className="row w-100 mx-0 ">
                 <Bar
                   usersByOcupation={usersByOcupation}
                   ocupationsName={ocupationsName}
                 />
               </div>
             </div>
-            <div className="col col-6 bg-danger ">
+            <div className="col col-6">
               <PeopleMap
                 departamentos={departamentosData}
                 usersByState={usersByState}
               />
             </div>
           </div>
+          <br />
+          <Link to="/dashboard">Volver</Link>
         </div>
       </section>
     </>

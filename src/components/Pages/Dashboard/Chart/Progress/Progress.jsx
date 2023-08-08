@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { fetchGetTotalCenso } from "../../../../../services/censoAPI";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { fetchGetTotalCenso } from '../../../../../services/censoAPI';
 
 const Progress = ({ censadosPorUsuario }) => {
   const userLogged = useSelector((state) => state.user.userLogged);
@@ -28,25 +28,33 @@ const Progress = ({ censadosPorUsuario }) => {
   }, [totalCensados, censadosPorUsuario]);
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <h2>Porcentaje censado por mí:</h2>
-      <br />
-      <div className="progress" style={{ width: "100%" }}>
-        <div
-          className="progress-bar bg-success"
-          role="progressbar"
-          style={{ width: `${porcentaje}%` }}
-        >
-          <span
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "black",
-            }}
+      <div
+        style={{
+          flex: '1',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div className="progress" style={{ width: '100%' }}>
+          <div
+            className="progress-bar bg-success"
+            role="progressbar"
+            style={{ width: `${porcentaje}%` }}
           >
-            {porcentaje.toFixed(5)}%
-          </span>
+            <span
+              style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                color: 'black',
+              }}
+            >
+              {porcentaje.toFixed(5)}%
+            </span>
+          </div>
         </div>
       </div>
     </div>

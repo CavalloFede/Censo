@@ -29,9 +29,9 @@ const Bar = ({ usersByOcupation, ocupationsName }) => {
     },
   };
   return (
-    <div className=" w-100">
+    <div className="w-100">
       <h2>Mis censados por ocupación:</h2>
-      <div id="chart">
+      <div id="chart" style={{ height: '100%' }}>
         {hasDataToShow ? (
           <ReactApexChart
             options={data.options}

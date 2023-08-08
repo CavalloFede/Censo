@@ -85,7 +85,7 @@ const Table = () => {
               name={ocupacion}
               onChange={handleInputChange}
             ></Select>
-            <div className="table-responsive" style={{ maxHeight: "400px" }}>
+            <div className="table-responsive" style={{ maxHeight: "600px" }}>
               <table className="table table-hover">
                 <thead>
                   <tr>

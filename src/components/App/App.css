@@ -1,22 +1,24 @@
 section.ventana {
-    margin-top: 50px;
-    text-align: center;
-  }
-  
-  section.ventana > div.card {
-    padding: 20px !important;
-  }
-  
-  section.ventana label {
-    font-size: 14px;
-    color: #606060;
-  }
-  
-  section.ventana img {
-    margin: 0 auto;
-  }
-  
-  section.ventana .card-body {
-    min-width: 400px;
-    width: auto !important;
-  }
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+  text-align: center;
+}
+
+section.ventana > div.card {
+  padding: 20px !important;
+}
+
+section.ventana label {
+  font-size: 14px;
+  color: #606060;
+}
+
+section.ventana img {
+  margin: 0 auto;
+}
+
+section.ventana .card-body {
+  min-width: 400px;
+  width: auto !important;
+}
