@@ -27,7 +27,7 @@ const Timer = () => {
 
   return (
     <div className="timer">
-      <h1>Tiempo restante del Censo:</h1>
+      <h2>Tiempo restante del Censo:</h2>
       <div className="timer" role="timer">
         <div className="col-4">
           <div className="box">

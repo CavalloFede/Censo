@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   fetchGetPersonasByUser,
   fetchGetDepartamentos,
   fetchGetOcupaciones,
-} from '../../../../services/censoAPI';
-import { Link } from 'react-router-dom';
-import { onInitial as iniciarDepartamentos } from '../../../../app/slices/departamentosSlice';
-import { onInitial as iniciarCensados } from '../../../../app/slices/censoSlice';
-import { onInitial as iniciarOcupaciones } from '../../../../app/slices/ocupacionesSlice';
+} from "../../../../services/censoAPI";
+import { Link } from "react-router-dom";
+import { onInitial as iniciarDepartamentos } from "../../../../app/slices/departamentosSlice";
+import { onInitial as iniciarCensados } from "../../../../app/slices/censoSlice";
+import { onInitial as iniciarOcupaciones } from "../../../../app/slices/ocupacionesSlice";
 
-import Donut from './Donut';
-import Bar from './Bar';
-import Timer from './Timer';
-import PeopleMap from './PeopleMap';
+import Donut from "./Donut";
+import Bar from "./Bar";
+import Timer from "./Timer";
+import PeopleMap from "./PeopleMap";
+import Progress from "./Progress";
 
 const Chart = () => {
   const dispatch = useDispatch();
@@ -110,17 +111,19 @@ const Chart = () => {
                 departmentsName={departmentsName}
               />
               <br />
-              <Bar
-                usersByOcupation={usersByOcupation}
-                ocupationsName={ocupationsName}
-              />
-              <br />
               <PeopleMap
                 departamentos={departamentosData}
                 usersByState={usersByState}
               />
               <br />
+              <Bar
+                usersByOcupation={usersByOcupation}
+                ocupationsName={ocupationsName}
+              />
+              <br />
               <Timer />
+              <br />
+              <Progress censadosPorUsuario={usersData.length} />
               <br />
               <Link to="/dashboard">Volver</Link>
             </div>

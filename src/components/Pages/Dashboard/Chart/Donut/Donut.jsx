@@ -32,17 +32,25 @@ const Donut = ({ usersByState, departmentsName }) => {
     },
   };
   return (
-    <div id="chart">
-      {hasDataToShow ? (
-        <ReactApexChart
-          options={data.options}
-          series={data.series}
-          type="donut"
-          height={300}
-        />
-      ) : (
-        <p>No hay datos para mostrar.</p>
-      )}
+    <div>
+      <h2>Mis censados por departamento:</h2>
+      <div
+        id="chart"
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "300px" }}
+      >
+        {hasDataToShow ? (
+          <ReactApexChart
+            options={data.options}
+            series={data.series}
+            type="donut"
+            height={300}
+            width={600}
+          />
+        ) : (
+          <p>No hay datos para mostrar.</p>
+        )}
+      </div>
     </div>
   );
 };
