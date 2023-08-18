@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Censo-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Censo-app es una aplicación creada como parte del proyecto final del taller de React en la facultad. Esta aplicación tiene como objetivo principal proporcionar a los usuarios una plataforma intuitiva y eficiente para llevar a cabo el censo de personas en Uruguay. Además de permitir el registro de datos censales, la aplicación también ofrece una visualización detallada de las personas censadas y una serie de estadísticas relevantes basadas en los datos recopilados.
 
-## Available Scripts
+## Instalación
 
-In the project directory, you can run:
+Si deseas probar Censo-app en tu entorno local, sigue estos pasos para la instalación:
 
-### `npm start`
+1. Asegúrate de tener Node.js y npm instalados en tu sistema.
+2. Clona este repositorio en tu máquina local utilizando el siguiente comando: `git clone https://github.com/TU_USUARIO/Censo-app.git`
+3. Accede a la carpeta del proyecto: `cd Censo-app`
+4. Instala las dependencias necesarias utilizando el comando: `npm install`
+5. Inicia la aplicación localmente: `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Uso
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Una vez que hayas iniciado la aplicación, podrás acceder a través de tu navegador web. En la interfaz de la aplicación, tendrás la posibilidad de ingresar datos de personas para el censo en Uruguay. Una vez ingresados los datos, podrás explorar las diversas funciones de visualización y obtener información estadística sobre las personas censadas.
 
-### `npm test`
+## Características Destacadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Registro de Personas:** Censo-app te permite registrar y almacenar los detalles de las personas censadas de manera estructurada.
 
-### `npm run build`
+- **Visualización Gráfica:** La aplicación ofrece gráficos interactivos que facilitan la comprensión de las estadísticas demográficas y otros datos relevantes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Búsqueda Eficiente:** Puedes buscar y filtrar personas censadas según diversos criterios, lo que facilita la gestión y el análisis de los datos.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Estado del Proyecto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Censo-app se considera un proyecto completo en su estado actual. Aunque no se planean grandes actualizaciones, se podrían implementar correcciones menores y mejoras en función de los comentarios de los usuarios y de las necesidades cambiantes.
 
-### `npm run eject`
+## Contacto
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Si tienes alguna pregunta, sugerencia o simplemente quieres charlar sobre este proyecto, no dudes en ponerte en contacto conmigo:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Correo Electrónico: fcmde1995@gmail.com
+- LinkedIn: [Federico Cavallo Molina](https://www.linkedin.com/in/federico-cavallo-molina/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Agradecimientos
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Me gustaría expresar mi agradecimiento especial a mi profesor, Martin Luz, por su guía invaluable y su apoyo constante durante todo el proceso de desarrollo de este proyecto:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- GitHub: [Martin Luz](https://github.com/MarLuz)
